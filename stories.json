@@ -1,0 +1,283 @@
+{
+    "story_1" : {
+                    "index" : 1,
+                    "story_pts" : 5,
+                    "date_created" : "20-03-2024",
+                    "part_of_sprint" : "Sprint 1",
+                    "status" : "DOING",
+                    "assigned_to" : "Petar, Teodora",
+                    "date_started" : "10-05-2024",
+                    "date_completed" : "None",
+                    "story" : "Kao korisnik, mogu da menjam turu.",
+                    "comment" : "",
+                    "acceptance criteria" : [
+                        {"test" : "Izmeniti ime ture", "status" : "Fails"},
+                        {"test" : "Izmeniti redosled umetnickih dela", "status" : "Succeedes"},
+                        {"test" : "Ukloniti umetnicko delo", "status" : "Fails"},
+                        {"test" : "Dodati umetnicko delo", "status" : "Fails"}
+                    ]
+    },
+    "story_2" : {
+        "index" : 2,
+        "story_pts" : 2,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Petar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, mogu da objavim kreiranu turu.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Objaviti turu", "status" : "Fails"},
+            {"test" : "Pretraziti turu sa korisnickog naloga", "status" : "Succeedes"},
+            {"test" : "Pretraziti turu sa naloga koji nije kreirao", "status" : "Fails"},
+            {"test" : "Ne dozvoliti objavu prazne ture", "status" : "Fails"}
+        ]
+    },
+    "story_3" : {
+        "index" : 3,
+        "story_pts" : 2,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Petar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, mogu da pretrazim licne ture.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da pretražimture po turu koju sadrži unetog predmeta", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po trajanju turu", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po karakteristike turu (klasično, modern, nmp šta još…)", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po cenu ulaska", "status" : "Fails"}
+        ]
+    },
+    "story_4" : {
+        "index" : 4,
+        "story_pts" : 2,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Petar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, mogu da pretrazim javne ture.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da pretražimture po turu koju sadrži unetog predmeta", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po trajanju ture", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po karakteristikama ture (klasično, modern, nmp šta još…)", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po cenu ulaska", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po broj učesnika", "status" : "Fails"},
+            {"test" : "Da li mogu da pretražim po datum početka", "status" : "Fails"}
+        ]
+    },
+    "story_5" : {
+        "index" : 5,
+        "story_pts" : 3,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Petar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, mogu da pregledam detalje o javnim i licnim turama.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da vidim ko će biti prisutan", "status" : "Fails"},
+            {"test" : "Da li mogu da vidim ko je vodič tura", "status" : "Succeedes"},
+            {"test" : "Da li mogu da vidim komentari i review-ove o turu", "status" : "Fails"}
+        ]
+    },
+    "story_6" : {
+        "index" : 6,
+        "story_pts" : 8,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Petar",
+        "date_started" : "10-05-2024",
+        "date_completed" : "11-05-2024",
+        "story" : "Kao korisnik, mogu da kreiram turu.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Kreirati turu", "status" : "Succeedes"},
+            {"test" : "Kreirati invalidnu turu", "status" : "Succeedes"},
+            {"test" : "Testirati da gost ne moze napraviti turu", "status" : "Succeedes"}
+        ]
+    },
+    "story_7" : {
+        "index" : 7,
+        "story_pts" : 5,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Samuel",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao gost, mogu da se ulogujem ili registrujem.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da gost može da se uloguje koristeći postojeći nalog", "status" : "Fails"},
+            {"test" : "Potvrditi da gost može da se registruje novim nalogom", "status" : "Fails"},
+            {"test" : "Potvrditi da se korisnik ne može registrovati bez unosa obaveznih informacija", "status" : "Fails"},
+            {"test" : "Potvrditi da gost može uspešno da se uloguje nakon registrovanja", "status" : "Fails"},
+            {"test" : "Proveriti da se korisnik ne može ulogovati s neispravnim podacima", "status" : "Fails"}
+        ]
+    },
+    "story_8" : {
+        "index" : 8,
+        "story_pts" : 2,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, mogu da pregledam detalje o odredjenom umetnickom predmetu.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da vidim više slike o predmetu", "status" : "Fails"},
+            {"test" : "Da li mogu da čitam i vezano materijali o predmetu (wikipedia link, td.)", "status" : "Fails"},
+            {"test" : "Da li mogu da čitam komentari i review-ove o predmetu", "status" : "Fails"}
+        ]
+    },
+    "story_9" : {
+        "index" : 9,
+        "story_pts" : 3,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da dodajem umjetnicke predmete.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "proveriti da li se umetnicki predmet moze dodati", "status" : "Fails"},
+            {"test" : "potvrditi da se ne moze dodati predmet sa praznim obaveznim poljima forme", "status" : "Fails"},
+            {"test" : "proveriti da li su detalji koje je uredjivac unio ispravno sacuvani", "status" : "Fails"},
+            {"test" : "potvrditi da ostale vrste korisnika ne mogu dodavati umetnicke predmete", "status" : "Fails"}
+        ]
+    },
+    "story_10" : {
+        "index" : 10,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da mijenjam podatke o opisu umjetnickog predmeta.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o opisu umetnickog predmeta", "status" : "Fails"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Fails"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o opisu umetnickog predmeta", "status" : "Fails"}
+        ]
+    },
+    "story_11" : {
+        "index" : 11,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da menjam podatke o godini nastanka umetnickog predmeta.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o godini nastanka umetnickog predmeta", "status" : "Fails"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Fails"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o godini nastanka umetnickog predmeta", "status" : "Fails"}
+        ]
+    },
+    "story_12" : {
+        "index" : 12,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da menjam podatke o epohi kojoj pripada umetnicki predmet.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o epohi umetnickog predmeta", "status" : "Fails"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Fails"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o epohi umetnickog predmeta", "status" : "Fails"}
+        ]
+    },
+    "story_13" : {
+        "index" : 13,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da menjam podatke o autoru umetnickog predmeta.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o autoru umetnickog predmeta", "status" : "Fails"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Fails"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o autoru umetnickog predmeta", "status" : "Fails"}
+        ]
+    },
+    "story_14" : {
+        "index" : 14,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Aleksandar, Teodora",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao uredjivac, mogu da menjam podatke o umetnickom pravcu.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o umetnickom pravcu umetnickog predmeta", "status" : "Fails"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Fails"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o umetnickom pravcu umetnickog predmeta", "status" : "Fails"}
+        ]
+    },
+    "story_15" : {
+        "index" : 15,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Ana",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, imam vizuelni pristup pregledu tura.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "", "status" : "Fails"},
+            {"test" : "", "status" : "Fails"},
+            {"test" : "", "status" : "Fails"}
+        ]
+    },
+    "story_16" : {
+        "index" : 16,
+        "story_pts" : 1,
+        "date_created" : "20-03-2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DOING",
+        "assigned_to" : "Ana",
+        "date_started" : "10-05-2024",
+        "date_completed" : "None",
+        "story" : "Kao korisnik, imam vizuelni pristup pregledu umetnickih predmeta u turi.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "", "status" : "Fails"},
+            {"test" : "", "status" : "Fails"},
+            {"test" : "", "status" : "Fails"}
+        ]
+    }
+}

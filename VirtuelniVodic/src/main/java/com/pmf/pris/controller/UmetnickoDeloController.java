@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
-
+	
 	@Autowired
 	UmetnickoDeloService uds;
 	

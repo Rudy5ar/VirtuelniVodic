@@ -1,8 +1,7 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
+import jakarta.persistence.*;
 import java.util.List;
 
 
