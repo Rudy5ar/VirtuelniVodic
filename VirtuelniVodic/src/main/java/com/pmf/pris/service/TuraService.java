@@ -1,5 +1,6 @@
 package com.pmf.pris.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,38 @@ public class TuraService {
         } else {
         	return false;
         }
+	}
+
+	public boolean objaviTuru(int idTure) {
+		Optional<Tura> optionalEntity = tr.findById(idTure);
+        if (optionalEntity.isPresent()) {
+            Tura tura = optionalEntity.get();
+            tura.setTip("javna");
+            tr.save(tura);
+            return true;
+        } else {
+        	return false;
+        }
+	}
+
+	public List<Tura> getPrivatne() {
+		List<Tura> privatne = tr.findByTip("privanta");
+		
+		return privatne;
+	}
+	
+	public List<Tura> getJavne() {
+		List<Tura> javne = tr.findByTip("javna");
+		
+		return javne;
+	}
+
+	public Tura prikaziDetaljeTure(int idTure, int idKorisnika) {
+		Tura tura = tr.findById(idTure).get();
+		if(tura.getKorisnik().getIdKorisnik() == idKorisnika || tura.getTip().equals("javna")) {
+			return tura;
+		}
+		return null;
 	}
 
 }
