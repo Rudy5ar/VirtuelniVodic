@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			<c:forEach items="${ svaDela}" var="v">
-				<td><a href="http://localhost:8080/Muzej/pregledPredmeta.jsp">${v.naziv}</a></td>
+				<td><a href="http://localhost:8080/Muzej/pregledPredmeta.jsp/${v.idUmetnickoDelo}">${v.naziv}</a></td>
 				<td>${v.opis}</td>
 			</c:forEach>
 		</tr>
