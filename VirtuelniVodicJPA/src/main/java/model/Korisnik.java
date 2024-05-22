@@ -25,7 +25,7 @@ public class Korisnik implements Serializable {
 
 	private String sifra;
 
-	private int uloga;
+	private String uloga;
 
 	//bi-directional many-to-one association to Clanak
 	@OneToMany(mappedBy="korisnik")
@@ -70,11 +70,11 @@ public class Korisnik implements Serializable {
 		this.sifra = sifra;
 	}
 
-	public int getUloga() {
+	public String getUloga() {
 		return this.uloga;
 	}
 
-	public void setUloga(int uloga) {
+	public void setUloga(String uloga) {
 		this.uloga = uloga;
 	}
 
