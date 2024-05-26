@@ -86,7 +86,7 @@ public class TuraService {
 		return null;
 	}
 
-	public Tura sortirajPoDatumu(Tura tura, String sortBy){
+	public Tura sortirajPoDatumu(Tura tura){
 		tura.setUmetnickodelos(tura.getUmetnickodelos().stream().sorted(Comparator.comparing(Umetnickodelo::getDatum)).toList());
 		return tura;
 	}

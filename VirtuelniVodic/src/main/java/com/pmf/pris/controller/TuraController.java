@@ -18,14 +18,17 @@ import model.Tura;
 @RequestMapping("tura")
 public class  TuraController {
 	
-	@Autowired
 	TuraService ts;
-	
+
+	public TuraController(TuraService t) {
+		ts = t;
+	}
+
 	@PostMapping("kreirajTuru")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
 		
 		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		if(ts.kreirajTuru(naziv, opis, 1) == false) {
+		if(!ts.kreirajTuru(naziv, opis, 1)) {
 			request.setAttribute("uspelo", "Nije kreirana tura");
 			System.out.println();
 			return "ture/turaNijeSacuvana";
@@ -36,7 +39,7 @@ public class  TuraController {
 	
 	@PostMapping("promeniTuru")
 	public String promeniTuru(HttpServletRequest request, @RequestParam("idTure") int idTure, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
-		if(ts.promeniTuru(idTure, naziv, opis) == false) {
+		if(!ts.promeniTuru(idTure, naziv, opis)) {
 			request.setAttribute("uspelo", "Nije promenjena tura");
 			return "ture/turaNijePromenjena";
 		}
@@ -47,7 +50,7 @@ public class  TuraController {
 	
 	@PostMapping("objaviTuru")
 	public String objaviTuru(HttpServletRequest request, @RequestParam("idTure") int idTure) {
-		if(ts.objaviTuru(idTure) == false) {
+		if(!ts.objaviTuru(idTure)) {
 			request.setAttribute("uspelo", "Nije promenjena tura");
 			return "ture/turaNijePromenjena";
 		}
@@ -82,5 +85,10 @@ public class  TuraController {
 
 		
 		return "ture/prikaziPromenjenuTuru";
+	}
+
+	public String sortirajPoDatumu(HttpServletRequest request, @RequestParam("tura") Tura tura){
+		request.setAttribute("sortiranaPoDatumu", ts.sortirajPoDatumu(tura));
+		return "ture/sortirajPoDatumu";
 	}
 }
