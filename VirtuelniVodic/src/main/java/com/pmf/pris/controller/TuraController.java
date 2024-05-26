@@ -16,7 +16,7 @@ import model.Tura;
 
 @Controller
 @RequestMapping("tura")
-public class TuraController {
+public class  TuraController {
 	
 	@Autowired
 	TuraService ts;

@@ -1,8 +1,10 @@
 package com.pmf.pris.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +85,12 @@ public class TuraService {
 		}
 		return null;
 	}
+
+	public Tura sortirajPoDatumu(Tura tura, String sortBy){
+		tura.setUmetnickodelos(tura.getUmetnickodelos().stream().sorted(Comparator.comparing(Umetnickodelo::getDatum)).toList());
+		return tura;
+	}
+
+
 
 }
