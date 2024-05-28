@@ -35,11 +35,11 @@ public class UmetnickoDeloController {
 	@PostMapping("kreirajUmetnickoDelo")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, 
 			@RequestParam("opis") String opis, @RequestParam("datum") Date datum,
-			@RequestParam("geografskaDuzina") double geografskaDuzina, 	@RequestParam("geografskaSirina") double geografskaSirina) {
-		
+			@RequestParam("geografskaDuzina") double geografskaDuzina, 	@RequestParam("geografskaSirina") double geografskaSirina, 
+			@RequestParam("opstost1") String opstost1, @RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3) {
 		
 		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		if(uds.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, 1) == false) {
+		if(uds.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, 1, opstost1, opstost2, opstost3) == false) {
 			request.setAttribute("uspelo", "Nije kreirano umetnicko delo");
 			System.out.println();
 			return "umetnickoDeloNijeSacuvano";

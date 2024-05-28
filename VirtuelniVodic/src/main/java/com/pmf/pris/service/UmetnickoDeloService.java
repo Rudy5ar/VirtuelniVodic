@@ -35,7 +35,7 @@ public class UmetnickoDeloService {
     }
     
 	public boolean kreirajUmetnickoDelo(String naziv, String opis, Date datum,
-			double geografskaDuzina, double geografskaSirina, int i) {
+			double geografskaDuzina, double geografskaSirina, int i, String opstost1, String opstost2, String opstost3) {
 		Umetnickodelo novaUmetnickoDelo = new Umetnickodelo();
 		novaUmetnickoDelo.setNaziv(naziv);
 		novaUmetnickoDelo.setOpis(opis);
@@ -43,7 +43,10 @@ public class UmetnickoDeloService {
 		novaUmetnickoDelo.setGeografskaDuzina(geografskaDuzina);
 		novaUmetnickoDelo.setGeografskaSirina(geografskaSirina);
 		novaUmetnickoDelo.setUmetnik(ur.findById(i).get());
-		
+		novaUmetnickoDelo.setOpstost1(opstost1);
+		novaUmetnickoDelo.setOpstost2(opstost2);
+		novaUmetnickoDelo.setOpstost3(opstost3);
+
 		try {
 			udr.save(novaUmetnickoDelo);
 		} catch (Exception e) {
