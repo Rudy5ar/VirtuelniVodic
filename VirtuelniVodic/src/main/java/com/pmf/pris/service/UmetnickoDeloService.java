@@ -35,14 +35,14 @@ public class UmetnickoDeloService {
     }
     
 	public boolean kreirajUmetnickoDelo(String naziv, String opis, Date datum,
-			double geografskaDuzina, double geografskaSirina, int i, String opstost1, String opstost2, String opstost3) {
+			double geografskaDuzina, double geografskaSirina, int umetnikId, String opstost1, String opstost2, String opstost3) {
 		Umetnickodelo novaUmetnickoDelo = new Umetnickodelo();
 		novaUmetnickoDelo.setNaziv(naziv);
 		novaUmetnickoDelo.setOpis(opis);
 		novaUmetnickoDelo.setDatum(datum);
 		novaUmetnickoDelo.setGeografskaDuzina(geografskaDuzina);
 		novaUmetnickoDelo.setGeografskaSirina(geografskaSirina);
-		novaUmetnickoDelo.setUmetnik(ur.findById(i).get());
+		novaUmetnickoDelo.setUmetnik(ur.findById(umetnikId).get());
 		novaUmetnickoDelo.setOpstost1(opstost1);
 		novaUmetnickoDelo.setOpstost2(opstost2);
 		novaUmetnickoDelo.setOpstost3(opstost3);
@@ -56,4 +56,18 @@ public class UmetnickoDeloService {
 
 		return true;
 	}
+	
+	public boolean izmeniOpisUmetnickogDela(int idUmetnickoDelo, String noviOpis) {
+        try {
+            Umetnickodelo delo = udr.findById(idUmetnickoDelo).orElse(null);
+            if (delo == null) {
+                return false;
+            }
+            delo.setOpis(noviOpis);
+            udr.save(delo);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

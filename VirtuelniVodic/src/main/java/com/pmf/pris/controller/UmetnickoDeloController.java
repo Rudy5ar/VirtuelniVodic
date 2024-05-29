@@ -33,19 +33,32 @@ public class UmetnickoDeloController {
     }
     
 	@PostMapping("kreirajUmetnickoDelo")
+	//treba proveriti da li sam uredjivac?
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, 
 			@RequestParam("opis") String opis, @RequestParam("datum") Date datum,
-			@RequestParam("geografskaDuzina") double geografskaDuzina, 	@RequestParam("geografskaSirina") double geografskaSirina, 
-			@RequestParam("opstost1") String opstost1, @RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3) {
+			@RequestParam("geografskaDuzina") double geografskaDuzina, 	@RequestParam("geografskaSirina") double geografskaSirina,
+			@RequestParam("umetnikId") int umetnikId, @RequestParam("opstost1") String opstost1,
+			@RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3) {
 		
-		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		if(uds.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, 1, opstost1, opstost2, opstost3) == false) {
+		if(uds.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, umetnikId, opstost1, opstost2, opstost3) == false) {
 			request.setAttribute("uspelo", "Nije kreirano umetnicko delo");
 			System.out.println();
-			return "umetnickoDeloNijeSacuvano";
+			return "umetnickoDeloNijeSacuvano"; // Naziv JSP stranice za grešku
 		}
 		request.setAttribute("uspelo", "Kreirano umetnicko delo");
-		return "prikaziSacuvanoUmetnickoDelo";
+		return "prikaziSacuvanoUmetnickoDelo"; // Naziv JSP stranice za uspeh
 	}
+	
+	@PostMapping("izmeniOpisUmetnickogDela")
+    public String izmeniOpis(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo, @RequestParam("noviOpis") String noviOpis) {
+		//treba proveriti da li sam uredjivac?
+        if (uds.izmeniOpisUmetnickogDela(idUmetnickoDelo, noviOpis)) {
+            request.setAttribute("poruka", "Opis je uspesno azuriran");
+            return "uspesnoAzuriranOpis";  // Naziv JSP stranice za uspeh
+        } else {
+            request.setAttribute("poruka", "Greska pri azuriranju opisa");
+            return "greskaPriAzuriranju";  // Naziv JSP stranice za grešku
+        }
+    }
 }
 
