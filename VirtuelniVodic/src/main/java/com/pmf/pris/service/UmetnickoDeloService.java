@@ -2,6 +2,7 @@ package com.pmf.pris.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.pmf.pris.repository.UmetnikRepository;
 
 import model.Tura;
 import model.Umetnickodelo;
+import model.Umetnik;
 
 @Service
 public class UmetnickoDeloService {
@@ -64,6 +66,37 @@ public class UmetnickoDeloService {
                 return false;
             }
             delo.setOpis(noviOpis);
+            udr.save(delo);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+	
+	public boolean izmeniAutoraUmetnickogDela(int idUmetnickoDelo, int noviUmetnikId) {
+        Optional<Umetnickodelo> umetnickoDeloOpt = udr.findById(idUmetnickoDelo);
+        Optional<Umetnik> noviUmetnikOpt = ur.findById(noviUmetnikId);
+        
+        if (umetnickoDeloOpt.isPresent() && noviUmetnikOpt.isPresent()) {
+            Umetnickodelo umetnickoDelo = umetnickoDeloOpt.get();
+            umetnickoDelo.setUmetnik(noviUmetnikOpt.get());
+            try {
+                udr.save(umetnickoDelo);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+	
+    public boolean izmeniGodinuNastankaUmetnickogDela(int idUmetnickoDelo, Date novaGodinaNastanka) {
+        try {
+            Umetnickodelo delo = udr.findById(idUmetnickoDelo).orElse(null);
+            if (delo == null) {
+                return false;
+            }
+            delo.setDatum(novaGodinaNastanka);
             udr.save(delo);
             return true;
         } catch (Exception e) {

@@ -60,5 +60,30 @@ public class UmetnickoDeloController {
             return "greskaPriAzuriranju";  // Naziv JSP stranice za grešku
         }
     }
+	
+	@PostMapping("izmeniAutoraUmetnickogDela")
+	//treba proveriti da li sam uredjivac?
+    public String izmeniAutora(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo, @RequestParam("noviUmetnikId") int noviUmetnikId) {
+        if (uds.izmeniAutoraUmetnickogDela(idUmetnickoDelo, noviUmetnikId)) {
+            request.setAttribute("poruka", "Autor je uspesno azuriran");
+            return "uspesnoAzuriranAutor";  // Naziv JSP stranice za uspeh
+        } else {
+            request.setAttribute("poruka", "Greska pri azuriranju autora");
+            return "greskaPriAzuriranju";  // Naziv JSP stranice za grešku
+        }
+    }
+	
+    @PostMapping("izmeniGodinuNastankaUmetnickogDela")
+	//treba proveriti da li sam uredjivac?
+    public String izmeniGodinuNastanka(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo, @RequestParam("novaGodinaNastanka") Date novaGodinaNastanka) {
+        if (uds.izmeniGodinuNastankaUmetnickogDela(idUmetnickoDelo, novaGodinaNastanka)) {
+            request.setAttribute("poruka", "Godina nastanka je uspešno ažurirana");
+            return "uspesnoAzuriranaGodinaNastanka";  // Naziv JSP stranice za uspeh
+        } else {
+            request.setAttribute("poruka", "Greška pri ažuriranju godine nastanka");
+            return "neuspesnoAzuriranaGodineNastanka";  // Naziv JSP stranice za grešku
+        }
+    }
+    
 }
 
