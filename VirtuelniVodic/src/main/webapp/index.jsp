@@ -8,6 +8,6 @@
 </head>
 <body>
 Ovo ce biti login strana za onog ko radi login<br>
-<a href="/Muzej/umetnickoDelo/svaDela">Pocetna strana</a>
+<a href="/Muzej/home.jsp">Pocetna strana</a>
 </body>
 </html>

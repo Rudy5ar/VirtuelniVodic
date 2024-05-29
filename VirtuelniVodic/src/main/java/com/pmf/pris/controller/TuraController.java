@@ -60,7 +60,7 @@ public class TuraController {
 		List<Tura> privatne = ts.getPrivatne();
 		request.setAttribute("listaPrivatnih", privatne);
 		
-		return "ture/prikaziPromenjenuTuru";
+		return "privatneTure";
 	}
 
 	@GetMapping("prikaziJavne")
@@ -68,7 +68,7 @@ public class TuraController {
 		List<Tura> javne = ts.getJavne();
 		request.setAttribute("listaJavnih", javne);
 		
-		return "ture/prikaziPromenjenuTuru";
+		return "javneTure";
 	}
 	
 	@GetMapping("prikaziDetaljeTure")
