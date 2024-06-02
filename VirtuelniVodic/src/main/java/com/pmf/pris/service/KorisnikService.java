@@ -78,8 +78,9 @@ public class KorisnikService implements UserDetailsService{
 	}
 
 	public Korisnik getCurrentUser() {
-		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
+		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) 
 				SecurityContextHolder.getContext().getAuthentication();
+				
 		
 		return korisnikRepository.findKorisnikByEmail(authentication.getName()).get();
 	}

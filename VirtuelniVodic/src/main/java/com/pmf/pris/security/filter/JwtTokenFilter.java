@@ -3,7 +3,6 @@ package com.pmf.pris.security.filter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +13,7 @@ import com.pmf.pris.service.TokenService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -27,14 +27,27 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-		
-		if(header == null || !header.startsWith("Bearer")) {
+		if (request.getCookies() == null) {
 			filterChain.doFilter(request, response);
 			return;
 		}
-	
-		String token = header.substring(7);
+
+		Cookie cookie = null;
+		String token = null;
+
+		for (Cookie current : request.getCookies()) {
+			if (current.getName().equals("_jwt")) {
+				cookie = current;
+				token = cookie.getValue();
+				break;
+			}
+		}
+
+		
+		if(token == null) {
+			filterChain.doFilter(request, response);
+			return;
+		}	
 		
 		if(tokenService.validateAccessToken(token)) {
 			UserDetails user = tokenService.extractUserDetails(token);

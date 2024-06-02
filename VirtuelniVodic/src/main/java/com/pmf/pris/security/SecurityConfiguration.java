@@ -38,8 +38,12 @@ import lombok.SneakyThrows;
 public class SecurityConfiguration {
 
 	public static final String[] PUBLIC_URLS = {
-			"/korisnik/login",
-			"/korisnik/register"
+			"/login",
+			"/register",
+			"/logout",
+			"/index.jsp",
+			"/register.jsp",
+			"/error.jsp"
 	};
 	
 	@Bean
@@ -96,6 +100,9 @@ public class SecurityConfiguration {
 						.requestMatchers(PUBLIC_URLS).permitAll()
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+				.logout(logout -> logout.deleteCookies("_jwt")
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/login"))
 				.build();
 	}
 }
