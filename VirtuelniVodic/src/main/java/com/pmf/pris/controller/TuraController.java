@@ -2,23 +2,25 @@ package com.pmf.pris.controller;
 
 import java.util.List;
 
+import com.pmf.pris.maps.DistanceResponse;
+import com.pmf.pris.maps.OpenRouteService;
+import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.service.TuraService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.Tura;
 
-@Controller
+@RestController
 @RequestMapping("tura")
 public class  TuraController {
-	
+
 	TuraService ts;
+	@Autowired
+	private OpenRouteService openRouteService;
 
 	public TuraController(TuraService t) {
 		ts = t;
@@ -87,8 +89,31 @@ public class  TuraController {
 		return "ture/prikaziPromenjenuTuru";
 	}
 
+	@GetMapping("sortirajPoDatumu")
 	public String sortirajPoDatumu(HttpServletRequest request, @RequestParam("tura") Tura tura){
 		request.setAttribute("sortiranaPoDatumu", ts.sortirajPoDatumu(tura));
 		return "ture/sortirajPoDatumu";
 	}
+
+		@GetMapping("sortirajPoRazdaljini")
+	public String sortirajPoRazdaljini(HttpServletRequest request, @RequestParam("idTure") int idTure){
+		request.setAttribute("sortiranaPoRazdaljini", ts.sortirajPoRazdaljini(idTure));
+		for(Umetnickodelo u : ts.sortirajPoRazdaljini(idTure).getUmetnickodelos()){
+			System.out.println(u);
+		}
+		return "ture/sortirajPoRazdaljini";
+	}
+
+	@GetMapping("razdaljinaDvaDela")
+	public int getDistance(
+			@RequestParam String prviLat,
+			@RequestParam String prviLong,
+			@RequestParam String drugiLat,
+			@RequestParam String drugiLong,
+			HttpServletRequest request) {
+		int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong);
+		request.setAttribute("distance", distance);
+		return distance;
+	}
+
 }

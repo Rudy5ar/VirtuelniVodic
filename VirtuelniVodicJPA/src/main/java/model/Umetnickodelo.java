@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import lombok.ToString;
+
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +63,11 @@ public class Umetnickodelo implements Serializable {
 	private Umetnik umetnik;
 
 	public Umetnickodelo() {
+	}
+
+	@Override
+	public String toString() {
+		return naziv + " " + opis + " " + datum + " " + geografskaDuzina;
 	}
 
 	public int getIdUmetnickoDelo() {

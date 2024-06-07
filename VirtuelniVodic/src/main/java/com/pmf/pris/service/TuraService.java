@@ -1,9 +1,9 @@
 package com.pmf.pris.service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import com.pmf.pris.maps.OpenRouteService;
 import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
 
 import model.Tura;
+import model.Umetnickodelo;
 
 @Service
 public class TuraService {
@@ -21,6 +22,9 @@ public class TuraService {
 	
 	@Autowired
 	KorisnikRepository kr;
+
+	@Autowired
+	OpenRouteService routeService;
 	
 	public boolean kreirajTuru(String naziv, String opis, int i) {
 		Tura novaTura = new Tura();
@@ -91,6 +95,34 @@ public class TuraService {
 		return tura;
 	}
 
+	public Tura sortirajPoRazdaljini(int idTure) {
+		Tura tura = tr.findById(idTure).orElseThrow(() -> new RuntimeException("Ne postoji tura"));
+		List<Umetnickodelo> delos = tura.getUmetnickodelos();
+		System.out.println(delos);
+
+		Map<Umetnickodelo, Integer> deloDistances = new HashMap<>();
+		for (Umetnickodelo delo : delos) {
+			int totalDistance = calculateTotalDistance(delo, delos);
+			deloDistances.put(delo, totalDistance);
+		}
+
+		List<Umetnickodelo> sortedDelos = delos.stream()
+				.sorted(Comparator.comparing(deloDistances::get))
+				.collect(Collectors.toList());
+
+		tura.setUmetnickodelos(sortedDelos);
+		return tura;
+	}
+
+	private int calculateTotalDistance(Umetnickodelo currentDelo, List<Umetnickodelo> allDelos) {
+		String currentLat = String.valueOf(currentDelo.getGeografskaSirina());
+		String currentLong = String.valueOf(currentDelo.getGeografskaDuzina());
+
+		return allDelos.stream()
+				.filter(delo -> !delo.equals(currentDelo))
+				.mapToInt(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
+				.sum();
+	}
 
 
 }
