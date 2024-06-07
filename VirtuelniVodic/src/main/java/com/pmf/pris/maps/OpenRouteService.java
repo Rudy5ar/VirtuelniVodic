@@ -47,7 +47,6 @@ public class OpenRouteService {
             // Convert distance from meters to kilometers and then to integer
             return (int) (distanceInMeters / 1000);
         } catch (IOException e) {
-            e.printStackTrace();
             throw new RuntimeException("Failed to parse JSON response");
         }
     }

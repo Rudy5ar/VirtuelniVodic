@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import jakarta.persistence.*;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -12,9 +14,12 @@ import java.util.List;
  * The persistent class for the umetnickodelo database table.
  * 
  */
+@Setter
+@Getter
 @Entity
 @NamedQuery(name="Umetnickodelo.findAll", query="SELECT u FROM Umetnickodelo u")
 public class Umetnickodelo implements Serializable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -68,78 +73,6 @@ public class Umetnickodelo implements Serializable {
 	@Override
 	public String toString() {
 		return naziv + " " + opis + " " + datum + " " + geografskaDuzina;
-	}
-
-	public int getIdUmetnickoDelo() {
-		return this.idUmetnickoDelo;
-	}
-
-	public void setIdUmetnickoDelo(int idUmetnickoDelo) {
-		this.idUmetnickoDelo = idUmetnickoDelo;
-	}
-
-	public Date getDatum() {
-		return this.datum;
-	}
-
-	public void setDatum(Date datum) {
-		this.datum = datum;
-	}
-
-	public double getGeografskaDuzina() {
-		return this.geografskaDuzina;
-	}
-
-	public void setGeografskaDuzina(double geografskaDuzina) {
-		this.geografskaDuzina = geografskaDuzina;
-	}
-
-	public double getGeografskaSirina() {
-		return this.geografskaSirina;
-	}
-
-	public void setGeografskaSirina(double geografskaSirina) {
-		this.geografskaSirina = geografskaSirina;
-	}
-
-	public String getNaziv() {
-		return this.naziv;
-	}
-
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
-	}
-
-	public String getOpis() {
-		return this.opis;
-	}
-
-	public void setOpis(String opis) {
-		this.opis = opis;
-	}
-
-	public List<Epoha> getEpohas() {
-		return this.epohas;
-	}
-
-	public void setEpohas(List<Epoha> epohas) {
-		this.epohas = epohas;
-	}
-
-	public List<Tura> getTuras() {
-		return this.turas;
-	}
-
-	public void setTuras(List<Tura> turas) {
-		this.turas = turas;
-	}
-
-	public Umetnik getUmetnik() {
-		return this.umetnik;
-	}
-
-	public void setUmetnik(Umetnik umetnik) {
-		this.umetnik = umetnik;
 	}
 
 }

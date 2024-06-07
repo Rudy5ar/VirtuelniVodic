@@ -1,6 +1,5 @@
 package com.pmf.pris.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +12,15 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
 	
-	@Autowired
-	UmetnickoDeloService uds;
-	
-	@GetMapping("svaDela")
+	private final UmetnickoDeloService umetnickoDeloService;
+
+    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService) {
+        this.umetnickoDeloService = umetnickoDeloService;
+    }
+
+    @GetMapping("svaDela")
 	public String svaDela(HttpServletRequest request) {
-		request.setAttribute("svaDela", uds.getDela());
+		request.setAttribute("svaDela", umetnickoDeloService.getDela());
 		return "home";
 	}
 	

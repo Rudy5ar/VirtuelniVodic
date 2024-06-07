@@ -4,31 +4,31 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.pmf.pris.maps.OpenRouteService;
+import jakarta.persistence.EntityNotFoundException;
 import model.Umetnickodelo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
 
 import model.Tura;
-import model.Umetnickodelo;
 
 @Service
 public class TuraService {
 
-	@Autowired
-	TuraRepository tr;
-	
-	@Autowired
-	KorisnikRepository kr;
+	private final TuraRepository tr;
+	private final KorisnikRepository kr;
+	private final OpenRouteService routeService;
 
-	@Autowired
-	OpenRouteService routeService;
-	
-	public boolean kreirajTuru(String naziv, String opis, int i) {
+    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService) {
+        this.tr = tr;
+        this.kr = kr;
+        this.routeService = routeService;
+    }
+
+    public boolean kreirajTuru(String naziv, String opis, int i) {
 		Tura novaTura = new Tura();
-		novaTura.setKorisnik(kr.findById(i).get());
+		novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
 		novaTura.setNaziv(naziv);
 		novaTura.setOpis(opis);
 		try {
@@ -45,10 +45,10 @@ public class TuraService {
 		Optional<Tura> optionalEntity = tr.findById(idTure);
         if (optionalEntity.isPresent()) {
             Tura tura = optionalEntity.get();
-            if(!naziv.equals("")) {
+            if(!naziv.isEmpty()) {
             	tura.setNaziv(naziv);
             }
-            if(!opis.equals("")) {
+            if(!opis.isEmpty()) {
             	tura.setOpis(opis);
             }
             tr.save(tura);
@@ -71,19 +71,15 @@ public class TuraService {
 	}
 
 	public List<Tura> getPrivatne() {
-		List<Tura> privatne = tr.findByTip("privanta");
-		
-		return privatne;
+        return tr.findByTip("privanta");
 	}
 	
 	public List<Tura> getJavne() {
-		List<Tura> javne = tr.findByTip("javna");
-		
-		return javne;
+        return tr.findByTip("javna");
 	}
 
 	public Tura prikaziDetaljeTure(int idTure, int idKorisnika) {
-		Tura tura = tr.findById(idTure).get();
+		Tura tura = tr.findById(idTure).orElseThrow(() -> new EntityNotFoundException("Tura " + idTure + " ne postoji"));
 		if(tura.getKorisnik().getIdKorisnik() == idKorisnika || tura.getTip().equals("javna")) {
 			return tura;
 		}
