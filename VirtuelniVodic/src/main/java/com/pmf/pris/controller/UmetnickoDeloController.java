@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pmf.pris.service.UmetnickoDeloService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import model.Umetnickodelo;
 
 @Controller
 @RequestMapping("umetnickoDelo")
@@ -83,6 +84,17 @@ public class UmetnickoDeloController {
             request.setAttribute("poruka", "Greška pri ažuriranju godine nastanka");
             return "neuspesnoAzuriranaGodineNastanka";  // Naziv JSP stranice za grešku
         }
+    }
+    
+    @GetMapping("prikazUmetnickogDela")
+    public String detaljiUmetnickogDela(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo) {
+        Umetnickodelo umetnickoDelo = uds.getDetaljiUmetnickogDela(idUmetnickoDelo);
+        if (umetnickoDelo == null) {
+            request.setAttribute("poruka", "Umetničko delo nije pronađeno");
+            return "greska"; // JSP stranica za grešku
+        }
+        request.setAttribute("umetnickoDelo", umetnickoDelo);
+        return "prikaziDetaljeZaUmetnickoDelo"; // JSP stranica za prikaz detalja
     }
     
 }

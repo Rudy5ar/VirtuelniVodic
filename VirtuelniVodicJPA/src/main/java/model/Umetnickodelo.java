@@ -1,9 +1,20 @@
 package model;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 
 /**
@@ -34,7 +45,6 @@ public class Umetnickodelo implements Serializable {
 	private String opstost2;
 	private String opstost3;
 	
-
 	//bi-directional many-to-many association to Epoha
 	@ManyToMany
 	@JoinTable(
@@ -64,6 +74,7 @@ public class Umetnickodelo implements Serializable {
 	//bi-directional many-to-one association to Umetnik
 	@ManyToOne
 	private Umetnik umetnik;
+
 
 	public Umetnickodelo() {
 	}

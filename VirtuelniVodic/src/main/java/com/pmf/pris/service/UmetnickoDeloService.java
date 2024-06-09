@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pmf.pris.repository.EpohaRepository;
 import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 import com.pmf.pris.repository.UmetnikRepository;
@@ -26,6 +27,9 @@ public class UmetnickoDeloService {
     
     @Autowired
     UmetnikRepository ur;
+    
+    @Autowired
+    EpohaRepository epohaRepository;
     
     public List<Umetnickodelo> getDelaUTuri(int idTure) {
         Tura t = tr.findById(idTure).get();
@@ -103,4 +107,9 @@ public class UmetnickoDeloService {
             return false;
         }
     }
+    
+    public Umetnickodelo getDetaljiUmetnickogDela(int idUmetnickoDelo) {
+        return udr.findById(idUmetnickoDelo).orElse(null);
+    }
+
 }
