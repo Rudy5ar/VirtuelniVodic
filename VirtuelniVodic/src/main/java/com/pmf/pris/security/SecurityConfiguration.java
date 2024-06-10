@@ -38,12 +38,7 @@ import lombok.SneakyThrows;
 public class SecurityConfiguration {
 
 	public static final String[] PUBLIC_URLS = {
-			"/login",
-			"/register",
-			"/logout",
-			"/index.jsp",
-			"/register.jsp",
-			"/error.jsp"
+			"**"
 	};
 	
 	@Bean
