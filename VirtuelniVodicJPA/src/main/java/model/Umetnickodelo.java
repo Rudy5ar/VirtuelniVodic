@@ -1,8 +1,7 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +29,12 @@ public class Umetnickodelo implements Serializable {
 	private String naziv;
 
 	private String opis;
+	
+	private String opstost1;
+	
+	private String opstost2;
+	
+	private String opstost3;
 
 	//bi-directional many-to-many association to Epoha
 	@ManyToMany
@@ -111,7 +116,31 @@ public class Umetnickodelo implements Serializable {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
+	
+	public String getOpstost1() {
+		return this.opstost1;
+	}
 
+	public void setOpstost1(String opstost1) {
+		this.opstost1 = opstost1;
+	}
+	
+	public String getOpstost2() {
+		return this.opstost2;
+	}
+
+	public void setOpstost2(String opstost2) {
+		this.opstost2 = opstost2;
+	}
+
+	public String getOpstost3() {
+		return this.opstost3;
+	}
+
+	public void setOpstost3(String opstost3) {
+		this.opstost3 = opstost3;
+	}
+	
 	public List<Epoha> getEpohas() {
 		return this.epohas;
 	}

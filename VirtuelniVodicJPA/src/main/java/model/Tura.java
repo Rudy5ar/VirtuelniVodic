@@ -1,8 +1,7 @@
 package model;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
+import jakarta.persistence.*;
 import java.util.List;
 
 
@@ -23,12 +22,14 @@ public class Tura implements Serializable {
 
 	private String opis;
 
+	private String tip;
+
 	//bi-directional many-to-one association to Korisnik
 	@ManyToOne
 	private Korisnik korisnik;
 
 	//bi-directional many-to-many association to Umetnickodelo
-	@ManyToMany(mappedBy="turas")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="turas")
 	private List<Umetnickodelo> umetnickodelos;
 
 	public Tura() {
@@ -56,6 +57,14 @@ public class Tura implements Serializable {
 
 	public void setOpis(String opis) {
 		this.opis = opis;
+	}
+
+	public String getTip() {
+		return this.tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
 	}
 
 	public Korisnik getKorisnik() {
