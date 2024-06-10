@@ -1,11 +1,22 @@
 package com.pmf.pris.service;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
 
@@ -83,5 +94,38 @@ public class TuraService {
 		}
 		return null;
 	}
+	
+	
+	public void napraviIzvestaj(int idTure) throws FileNotFoundException, DocumentException {
+		Tura tura = tr.findById(idTure).get();
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream("Tura.pdf"));
 
+		document.open();
+		Font font = FontFactory.getFont(FontFactory.TIMES, 14, BaseColor.BLACK);
+		Chunk id = new Chunk("id: " + tura.getIdTura(), font);
+		Chunk opis = new Chunk("Opis: " + tura.getOpis(), font);
+		Chunk naziv = new Chunk("Naziv: " + tura.getNaziv(), font);
+		Chunk korisnik = new Chunk("Korisnik: " + tura.getKorisnik().getKorisnickoIme(), font);
+		Chunk tip = new Chunk("Tip: " + tura.getTip(), font);
+		Paragraph naslov = new Paragraph("Prikaz informacija za odabranu turu");
+		naslov.setAlignment(Element.ALIGN_CENTER);
+		
+
+
+		document.add(naslov);
+		document.add(new Paragraph("\n"));
+		document.add(new Paragraph("\n"));
+		document.add(id);
+		document.add(new Paragraph("\n"));
+		document.add(opis);
+		document.add(new Paragraph("\n"));
+		document.add(korisnik);
+		document.add(new Paragraph("\n"));
+		document.add(naziv);
+		document.add(new Paragraph("\n"));
+		document.add(tip);
+		document.close();
+	}
 }
+

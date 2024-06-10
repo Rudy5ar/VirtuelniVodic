@@ -1,5 +1,6 @@
 package com.pmf.pris.controller;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itextpdf.text.DocumentException;
 import com.pmf.pris.service.TuraService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -82,5 +84,11 @@ public class TuraController {
 
 		
 		return "ture/prikaziPromenjenuTuru";
+	}
+	
+	@GetMapping("izradaPdfa")
+	public String izradaPdfa(HttpServletRequest request, @RequestParam("idTure") int idTure) throws FileNotFoundException, DocumentException {
+		ts.napraviIzvestaj(idTure);
+		return "ture/izradaPdfa";
 	}
 }
