@@ -29,7 +29,7 @@ public class Tura implements Serializable {
 	private Korisnik korisnik;
 
 	//bi-directional many-to-many association to Umetnickodelo
-	@ManyToMany(mappedBy="turas")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="turas")
 	private List<Umetnickodelo> umetnickodelos;
 
 	public Tura() {

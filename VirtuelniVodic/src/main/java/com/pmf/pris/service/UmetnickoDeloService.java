@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pmf.pris.repository.EpohaRepository;
 import com.pmf.pris.repository.TuraRepository;
+import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 import com.pmf.pris.repository.UmetnikRepository;
 
@@ -18,28 +19,28 @@ import model.Umetnik;
 
 @Service
 public class UmetnickoDeloService {
-    
+
     @Autowired
     UmetnickoDeloRepository udr;
-    
+
     @Autowired
     TuraRepository tr;
-    
+
     @Autowired
     UmetnikRepository ur;
-    
+
     @Autowired
     EpohaRepository epohaRepository;
-    
+
     public List<Umetnickodelo> getDelaUTuri(int idTure) {
         Tura t = tr.findById(idTure).get();
         return t.getUmetnickodelos();
     }
-    
+
     public List<Umetnickodelo> getDela() {
         return udr.findAll();
     }
-    
+
 	public boolean kreirajUmetnickoDelo(String naziv, String opis, Date datum,
 			double geografskaDuzina, double geografskaSirina, int umetnikId, String opstost1, String opstost2, String opstost3) {
 		Umetnickodelo novaUmetnickoDelo = new Umetnickodelo();
@@ -76,11 +77,11 @@ public class UmetnickoDeloService {
             return false;
         }
     }
-	
+
 	public boolean izmeniAutoraUmetnickogDela(int idUmetnickoDelo, int noviUmetnikId) {
         Optional<Umetnickodelo> umetnickoDeloOpt = udr.findById(idUmetnickoDelo);
         Optional<Umetnik> noviUmetnikOpt = ur.findById(noviUmetnikId);
-        
+
         if (umetnickoDeloOpt.isPresent() && noviUmetnikOpt.isPresent()) {
             Umetnickodelo umetnickoDelo = umetnickoDeloOpt.get();
             umetnickoDelo.setUmetnik(noviUmetnikOpt.get());
@@ -93,7 +94,7 @@ public class UmetnickoDeloService {
         }
         return false;
     }
-	
+
     public boolean izmeniGodinuNastankaUmetnickogDela(int idUmetnickoDelo, Date novaGodinaNastanka) {
         try {
             Umetnickodelo delo = udr.findById(idUmetnickoDelo).orElse(null);
@@ -107,7 +108,7 @@ public class UmetnickoDeloService {
             return false;
         }
     }
-    
+
     public Umetnickodelo getDetaljiUmetnickogDela(int idUmetnickoDelo) {
         return udr.findById(idUmetnickoDelo).orElse(null);
     }

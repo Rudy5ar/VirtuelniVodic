@@ -44,7 +44,7 @@ public class TuraController {
 		return "ture/prikaziPromenjenuTuru";
 		
 	}
-	
+	//nesto sam mijenjala
 	@PostMapping("objaviTuru")
 	public String objaviTuru(HttpServletRequest request, @RequestParam("idTure") int idTure) {
 		if(ts.objaviTuru(idTure) == false) {

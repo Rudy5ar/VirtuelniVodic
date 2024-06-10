@@ -1,6 +1,7 @@
 package com.pmf.pris.controller;
 
-import java.sql.Date;
+import java.util.Map;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,38 +10,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pmf.pris.service.TuraService;
 import com.pmf.pris.service.UmetnickoDeloService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.Umetnickodelo;
+import jakarta.transaction.Transactional;
+import model.Tura;
 
 @Controller
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
-    
+
     @Autowired
     UmetnickoDeloService uds;
-    
+
     @GetMapping("delaUTuri")
     public String delaUTuri(HttpServletRequest request, @RequestParam("idTure") int idTure) {
         request.setAttribute("delaUTuri", uds.getDelaUTuri(idTure));
         return "pregledPredmeta";
     }
-    
+
     @GetMapping("svaDela")
     public String svaDela(HttpServletRequest request) {
         request.setAttribute("svaDela", uds.getDela());
         return "home";
     }
-    
+
 	@PostMapping("kreirajUmetnickoDelo")
 	//treba proveriti da li sam uredjivac?
-	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, 
+	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv,
 			@RequestParam("opis") String opis, @RequestParam("datum") Date datum,
 			@RequestParam("geografskaDuzina") double geografskaDuzina, 	@RequestParam("geografskaSirina") double geografskaSirina,
 			@RequestParam("umetnikId") int umetnikId, @RequestParam("opstost1") String opstost1,
 			@RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3) {
-		
+
 		if(uds.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, umetnikId, opstost1, opstost2, opstost3) == false) {
 			request.setAttribute("uspelo", "Nije kreirano umetnicko delo");
 			System.out.println();
@@ -61,7 +65,7 @@ public class UmetnickoDeloController {
             return "greskaPriAzuriranju";  // Naziv JSP stranice za grešku
         }
     }
-	
+
 	@PostMapping("izmeniAutoraUmetnickogDela")
 	//treba proveriti da li sam uredjivac?
     public String izmeniAutora(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo, @RequestParam("noviUmetnikId") int noviUmetnikId) {
@@ -73,7 +77,7 @@ public class UmetnickoDeloController {
             return "greskaPriAzuriranju";  // Naziv JSP stranice za grešku
         }
     }
-	
+
     @PostMapping("izmeniGodinuNastankaUmetnickogDela")
 	//treba proveriti da li sam uredjivac?
     public String izmeniGodinuNastanka(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo, @RequestParam("novaGodinaNastanka") Date novaGodinaNastanka) {
@@ -85,7 +89,7 @@ public class UmetnickoDeloController {
             return "neuspesnoAzuriranaGodineNastanka";  // Naziv JSP stranice za grešku
         }
     }
-    
+
     @GetMapping("prikazUmetnickogDela")
     public String detaljiUmetnickogDela(HttpServletRequest request, @RequestParam("idUmetnickoDelo") int idUmetnickoDelo) {
         Umetnickodelo umetnickoDelo = uds.getDetaljiUmetnickogDela(idUmetnickoDelo);
@@ -96,6 +100,6 @@ public class UmetnickoDeloController {
         request.setAttribute("umetnickoDelo", umetnickoDelo);
         return "prikaziDetaljeZaUmetnickoDelo"; // JSP stranica za prikaz detalja
     }
-    
+
 }
 

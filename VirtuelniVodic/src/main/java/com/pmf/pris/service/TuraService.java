@@ -65,7 +65,7 @@ public class TuraService {
 	}
 
 	public List<Tura> getPrivatne() {
-		List<Tura> privatne = tr.findByTip("privanta");
+		List<Tura> privatne = tr.findByTip("privatna");
 		
 		return privatne;
 	}
@@ -82,6 +82,10 @@ public class TuraService {
 			return tura;
 		}
 		return null;
+	}
+	
+	public Tura getById(int id) {
+		return tr.findById(id).get();
 	}
 
 }
