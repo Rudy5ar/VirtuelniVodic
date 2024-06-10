@@ -21,20 +21,22 @@ import model.Tura;
 @Controller
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
+	
+	private final UmetnickoDeloService umetnickoDeloService;
 
-    @Autowired
-    UmetnickoDeloService uds;
+    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService) {
+        this.umetnickoDeloService = umetnickoDeloService;
+    }
+
+    @GetMapping("svaDela")
+	public String svaDela(HttpServletRequest request) {
+		request.setAttribute("svaDela", umetnickoDeloService.getDela());
+		return "home";
 
     @GetMapping("delaUTuri")
     public String delaUTuri(HttpServletRequest request, @RequestParam("idTure") int idTure) {
         request.setAttribute("delaUTuri", uds.getDelaUTuri(idTure));
         return "pregledPredmeta";
-    }
-
-    @GetMapping("svaDela")
-    public String svaDela(HttpServletRequest request) {
-        request.setAttribute("svaDela", uds.getDela());
-        return "home";
     }
 
 	@PostMapping("kreirajUmetnickoDelo")

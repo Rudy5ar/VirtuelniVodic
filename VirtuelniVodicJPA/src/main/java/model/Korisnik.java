@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 
@@ -9,6 +14,10 @@ import java.util.List;
  * The persistent class for the korisnik database table.
  * 
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @NamedQuery(name="Korisnik.findAll", query="SELECT k FROM Korisnik k")
 public class Korisnik implements Serializable {
@@ -33,92 +42,5 @@ public class Korisnik implements Serializable {
 	//bi-directional many-to-one association to Tura
 	@OneToMany(mappedBy="korisnik")
 	private List<Tura> turas;
-
-	public Korisnik() {
-	}
-
-	public int getIdKorisnik() {
-		return this.idKorisnik;
-	}
-
-	public void setIdKorisnik(int idKorisnik) {
-		this.idKorisnik = idKorisnik;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getKorisnickoIme() {
-		return this.korisnickoIme;
-	}
-
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme = korisnickoIme;
-	}
-
-	public String getSifra() {
-		return this.sifra;
-	}
-
-	public void setSifra(String sifra) {
-		this.sifra = sifra;
-	}
-
-	public String getUloga() {
-		return this.uloga;
-	}
-
-	public void setUloga(String uloga) {
-		this.uloga = uloga;
-	}
-
-	public List<Clanak> getClanaks() {
-		return this.clanaks;
-	}
-
-	public void setClanaks(List<Clanak> clanaks) {
-		this.clanaks = clanaks;
-	}
-
-	public Clanak addClanak(Clanak clanak) {
-		getClanaks().add(clanak);
-		clanak.setKorisnik(this);
-
-		return clanak;
-	}
-
-	public Clanak removeClanak(Clanak clanak) {
-		getClanaks().remove(clanak);
-		clanak.setKorisnik(null);
-
-		return clanak;
-	}
-
-	public List<Tura> getTuras() {
-		return this.turas;
-	}
-
-	public void setTuras(List<Tura> turas) {
-		this.turas = turas;
-	}
-
-	public Tura addTura(Tura tura) {
-		getTuras().add(tura);
-		tura.setKorisnik(this);
-
-		return tura;
-	}
-
-	public Tura removeTura(Tura tura) {
-		getTuras().remove(tura);
-		tura.setKorisnik(null);
-
-		return tura;
-	}
 
 }

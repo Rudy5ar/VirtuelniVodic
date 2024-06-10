@@ -2,12 +2,9 @@ package com.pmf.pris.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.pmf.pris.maps.OpenRouteService;
+import model.Umetnickodelo;
+import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.service.TuraService;
 
@@ -80,7 +77,37 @@ public class TuraController {
 		Tura detalji = ts.prikaziDetaljeTure(idTure, idKorisnika);
 		request.setAttribute("detalji", detalji);
 
-		
-		return "ture/prikaziPromenjenuTuru";
-	}
+
+        return "ture/prikaziPromenjenuTuru";
+    }
+
+    @GetMapping("sortirajPoDatumu")
+    public String sortirajPoDatumu(HttpServletRequest request, @RequestParam("tura") Tura tura) {
+        request.setAttribute("sortiranaPoDatumu", ts.sortirajPoDatumu(tura));
+        return "ture/sortirajPoDatumu";
+    }
+
+    @GetMapping("sortirajPoRazdaljini")
+    public String sortirajPoRazdaljini(HttpServletRequest request, @RequestParam("idTure") int idTure) {
+
+        Tura tura = ts.sortirajPoRazdaljini(idTure);
+        request.setAttribute("sortiranaPoRazdaljini", tura);
+        for (Umetnickodelo u : tura.getUmetnickodelos()) {
+            System.out.println(u);
+        }
+        return "ture/sortirajPoRazdaljini";
+    }
+
+    @GetMapping("razdaljinaDvaDela")
+    public int getDistance(
+            @RequestParam String prviLat,
+            @RequestParam String prviLong,
+            @RequestParam String drugiLat,
+            @RequestParam String drugiLong,
+            HttpServletRequest request) {
+        int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong);
+        request.setAttribute("distance", distance);
+        return distance;
+    }
+
 }
