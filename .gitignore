@@ -1,5 +1,38 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,intellij,java,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,intellij,java,git
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
 
 ### Eclipse ###
 .metadata
@@ -30,7 +63,6 @@ local.properties
 .autotools
 
 # Java annotation processor (APT)
-.factorypath
 
 # PDT-specific (PHP Development Tools)
 .buildpath
@@ -45,7 +77,6 @@ local.properties
 .texlipse
 
 # STS (Spring Tool Suite)
-.springBeans
 
 # Code Recommenders
 .recommenders/
@@ -132,7 +163,6 @@ cmake-build-*/
 .idea/**/mongoSettings.xml
 
 # File-based project format
-*.iws
 
 # IntelliJ
 out/
@@ -199,7 +229,6 @@ fabric.properties
 # Compiled class file
 *.class
 target
-.project
 
 # Log file
 *.log

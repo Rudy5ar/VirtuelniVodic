@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.pmf.pris.maps.OpenRouteService;
 import model.Umetnickodelo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.service.TuraService;
@@ -17,12 +19,15 @@ public class TuraController {
 	
 	@Autowired
 	TuraService ts;
+
+	@Autowired
+	OpenRouteService openRouteService;
 	
 	@PostMapping("kreirajTuru")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
 		
 		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		if(ts.kreirajTuru(naziv, opis, 1) == false) {
+		if(!ts.kreirajTuru(naziv, opis, 1)) {
 			request.setAttribute("uspelo", "Nije kreirana tura");
 			System.out.println();
 			return "ture/turaNijeSacuvana";
@@ -33,7 +38,7 @@ public class TuraController {
 	
 	@PostMapping("promeniTuru")
 	public String promeniTuru(HttpServletRequest request, @RequestParam("idTure") int idTure, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
-		if(ts.promeniTuru(idTure, naziv, opis) == false) {
+		if(!ts.promeniTuru(idTure, naziv, opis)) {
 			request.setAttribute("uspelo", "Nije promenjena tura");
 			return "ture/turaNijePromenjena";
 		}
@@ -44,7 +49,7 @@ public class TuraController {
 	//nesto sam mijenjala
 	@PostMapping("objaviTuru")
 	public String objaviTuru(HttpServletRequest request, @RequestParam("idTure") int idTure) {
-		if(ts.objaviTuru(idTure) == false) {
+		if(!ts.objaviTuru(idTure)) {
 			request.setAttribute("uspelo", "Nije promenjena tura");
 			return "ture/turaNijePromenjena";
 		}
