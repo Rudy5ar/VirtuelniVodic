@@ -116,7 +116,8 @@ tr:hover {
         <h1><a class="header" href="http://localhost:8080/Muzej/home.jsp">Virtuelni vodic</a></h1>
     </header>
     <nav>
-        <a href="http://localhost:8080/Muzej/home.jsp">Pocetna</a> 
+        <a href="http://localhost:8080/Muzej/home.jsp">Pocetna</a>
+        <a href="http://localhost:8080/Muzej/login">Ulogovanje</a> 
         <a href="http://localhost:8080/Muzej/kreiranjeTure.jsp">Kreirajte novu turu</a>
         <a href="http://localhost:8080/Muzej/tura/prikaziJavne">Javne ture</a>
         <a href="http://localhost:8080/Muzej/tura/prikaziPrivatne">Privatne ture</a>

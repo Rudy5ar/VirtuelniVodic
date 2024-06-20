@@ -28,6 +28,11 @@ public class KorisnikController {
 	@Autowired
 	private KorisnikService korisnikService;
 	
+	@GetMapping
+	public String home() {
+		return "home";
+	}
+	
 	@PostMapping("/register")
 	public String register(@ModelAttribute @Valid RegistrationDTO registration,
 			HttpServletResponse response,
@@ -35,7 +40,7 @@ public class KorisnikController {
 		log.info("Registracija: {}", registration.toString());
 		TokenDTO token = korisnikService.register(registration);
 		response.addHeader("Set-Cookie", "_jwt=" + token.getAccessToken() + "; HttpOnly; Secure; SameSite=Lax;");
-		return "redirect:/security";
+		return "redirect:/home";
 	}
 	
 	@PostMapping("/login")
@@ -45,25 +50,19 @@ public class KorisnikController {
 		log.info("Prijava: {}", login.toString());
 		TokenDTO token = korisnikService.login(login);
 		response.addHeader("Set-Cookie", "_jwt=" + token.getAccessToken() + "; HttpOnly; Secure; SameSite=Lax;");
-		return "redirect:/security";
+		return "redirect:/home";
 	}
 	
 	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("user", new LoginDTO());
-		return "index";
+		return "login";
 	}
 	
 	@GetMapping("/register")
 	public String register(Model model) {
 		model.addAttribute("user", new RegistrationDTO());
 		return "register";
-	}
-	
-	@GetMapping("/security")
-	public String security(Model model) {
-		model.addAttribute("korisnickoIme", korisnikService.getCurrentUser().getKorisnickoIme());
-		return "security";
 	}
 	
 	@ExceptionHandler({UsernameNotFoundException.class, BadRegistrationException.class,

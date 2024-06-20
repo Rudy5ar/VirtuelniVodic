@@ -16,6 +16,7 @@
     </header>
     <nav>
     	<a href="http://localhost:8080/Muzej/home.jsp">Pocetna</a>
+        <a href="http://localhost:8080/Muzej/login">Ulogovanje</a>
         <a href="http://localhost:8080/Muzej/kreiranjeTure.jsp">Kreirajte novu turu</a>
         <a href="tura/prikaziJavne">Javne ture</a>
         <a href="tura/prikaziPrivatne">Privatne ture</a>
