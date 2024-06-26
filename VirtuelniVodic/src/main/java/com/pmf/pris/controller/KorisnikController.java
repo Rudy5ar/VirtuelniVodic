@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pmf.pris.exception.BadLoginException;
 import com.pmf.pris.exception.BadRegistrationException;
@@ -40,7 +41,7 @@ public class KorisnikController {
 		log.info("Registracija: {}", registration.toString());
 		TokenDTO token = korisnikService.register(registration);
 		response.addHeader("Set-Cookie", "_jwt=" + token.getAccessToken() + "; HttpOnly; Secure; SameSite=Lax;");
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	@PostMapping("/login")
@@ -50,7 +51,7 @@ public class KorisnikController {
 		log.info("Prijava: {}", login.toString());
 		TokenDTO token = korisnikService.login(login);
 		response.addHeader("Set-Cookie", "_jwt=" + token.getAccessToken() + "; HttpOnly; Secure; SameSite=Lax;");
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/login")
@@ -63,6 +64,24 @@ public class KorisnikController {
 	public String register(Model model) {
 		model.addAttribute("user", new RegistrationDTO());
 		return "register";
+	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		model.addAttribute("korisnici", korisnikService.getAllUser());
+		return "admin";
+	}
+	
+	@GetMapping("/uredjivac")
+	public String uredjivac(@RequestParam Integer id) {
+		korisnikService.addUredjivacRole(id);
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/neuredjivac")
+	public String neuredjivac(@RequestParam Integer id) {
+		korisnikService.removeUredjivacRole(id);
+		return "redirect:/admin";
 	}
 	
 	@ExceptionHandler({UsernameNotFoundException.class, BadRegistrationException.class,
