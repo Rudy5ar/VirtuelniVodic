@@ -1,5 +1,7 @@
 package com.pmf.pris.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,8 @@ import model.Korisnik;
 @Service
 public class KorisnikService implements UserDetailsService{
 
+	private static final Korisnik ADMIN = new Korisnik(0, "admin", "Admin", "admin", "ADMIN", null, null);
+	
 	@Autowired
 	private KorisnikRepository korisnikRepository;
 	
@@ -67,6 +71,10 @@ public class KorisnikService implements UserDetailsService{
 	}
 
 	public TokenDTO login(@Valid LoginDTO login) {
+		if(isAdmin(login)) {
+			return tokenService.generateToken(ADMIN);
+		}
+		
 		Korisnik korisnik = korisnikRepository.findKorisnikByEmail(login.getEmail())
 				.orElseThrow(() -> new UsernameNotFoundException("Nije ispravan email ili lozinka!"));
 		
@@ -83,5 +91,28 @@ public class KorisnikService implements UserDetailsService{
 				
 		
 		return korisnikRepository.findKorisnikByEmail(authentication.getName()).get();
+	}
+
+	public List<Korisnik> getAllUser() {
+		return korisnikRepository.findAll();
+	}
+	
+	private boolean isAdmin(LoginDTO loginDTO) {
+		return loginDTO.getEmail().equals(ADMIN.getEmail()) &&
+				loginDTO.getSifra().equals(ADMIN.getSifra());
+	}
+
+	public void addUredjivacRole(Integer id) {
+		Korisnik korisnik = korisnikRepository.findById(id)
+			.orElseThrow(() ->  new UsernameNotFoundException(String.format("Nema korisnik sa id-om %d!", id)));
+		korisnik.setUloga("UREDJIVAC");
+		korisnikRepository.save(korisnik);
+	}
+	
+	public void removeUredjivacRole(Integer id) {
+		Korisnik korisnik = korisnikRepository.findById(id)
+			.orElseThrow(() ->  new UsernameNotFoundException(String.format("Nema korisnik sa id-om %d!", id)));
+		korisnik.setUloga("KORISNIK");
+		korisnikRepository.save(korisnik);
 	}
 }

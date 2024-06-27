@@ -21,6 +21,7 @@
         <a href="tura/prikaziJavne">Javne ture</a>
         <a href="tura/prikaziPrivatne">Privatne ture</a>
         <a href="http://localhost:8080/Muzej/urediPredmet.jsp">Uredi predmet</a>
+        <sec:authorize access="hasAuthority('ADMIN')"><a href="admin">Admin strana</a></sec:authorize>
     </nav>
     <div class="container">
         <h2>Dobrodosli na Virtuelni vodic!</h2>
