@@ -1,16 +1,31 @@
 package com.pmf.pris.controller;
 
+import java.io.OutputStream;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pmf.pris.maps.OpenRouteService;
 import model.Umetnickodelo;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.service.TuraService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import model.Tura;
 
 @Controller
@@ -113,6 +128,28 @@ public class TuraController {
         int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong);
         request.setAttribute("distance", distance);
         return distance;
+    }
+    
+    @SneakyThrows
+    @GetMapping("/pdf")
+    public void getTuraPdf(HttpServletRequest request, HttpServletResponse response, @RequestParam Integer idTura) {
+    	JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("reports/reportTure.jrxml").getInputStream());
+    	
+    	Tura tura = ts.getById(idTura);
+    	
+    	Map<String, Object> param = new HashMap<>();
+    	param.put("naziv", tura.getNaziv());
+    	param.put("opis", tura.getOpis());
+    	param.put("tip", tura.getTip());
+    	param.put("korisnik", tura.getKorisnik().getKorisnickoIme());
+    	param.put("datum", Instant.now());
+    	
+    	JRDataSource dataSource = new JREmptyDataSource();
+    	
+    	JasperPrint print = JasperFillManager.fillReport(report, param, dataSource);
+    	
+    	OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(print, out);
     }
 
 }

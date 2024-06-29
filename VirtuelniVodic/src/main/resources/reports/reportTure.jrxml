@@ -1,0 +1,55 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="reportTure" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be8a8296-9b60-4e1d-8c89-901df93cd911">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="naziv" class="java.lang.String"/>
+	<parameter name="datum" class="java.time.Instant"/>
+	<parameter name="opis" class="java.lang.String"/>
+	<parameter name="korisnik" class="java.lang.String"/>
+	<parameter name="tip" class="java.lang.String"/>
+	<query language="sql"><![CDATA[]]></query>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="7d9dbd78-684e-420a-a12d-86233923d971" x="0" y="0" width="555" height="79" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Tura]]></text>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch"/>
+	<columnHeader height="144" splitType="Stretch">
+		<element kind="textField" uuid="46193082-8795-427a-ba26-4ecdff5a2f72" x="0" y="0" width="111" height="30">
+			<expression><![CDATA["Naziv ture"]]></expression>
+		</element>
+		<element kind="textField" uuid="598028ea-9909-423e-8f59-50639b4e4cc4" x="111" y="0" width="111" height="30">
+			<expression><![CDATA["Datum"]]></expression>
+		</element>
+		<element kind="textField" uuid="ed058e66-0980-49a8-b080-778a4306927a" x="222" y="0" width="111" height="30">
+			<expression><![CDATA["Opis ture"]]></expression>
+		</element>
+		<element kind="textField" uuid="fc694a7d-0a31-45d2-934e-b9134035aa1c" x="333" y="0" width="111" height="30">
+			<expression><![CDATA["Korisnik"]]></expression>
+		</element>
+		<element kind="textField" uuid="7c1e6f3a-a97e-40ee-9a8f-e1c2356b772a" x="444" y="0" width="111" height="30">
+			<expression><![CDATA["Tip ture"]]></expression>
+		</element>
+		<element kind="textField" uuid="a2b3abc9-7438-4dd4-b7cc-32d7f6782026" x="0" y="30" width="111" height="30">
+			<expression><![CDATA[$P{naziv}]]></expression>
+		</element>
+		<element kind="textField" uuid="6d569201-a087-45d3-bf6b-e7adbd56c260" x="111" y="30" width="111" height="30">
+			<expression><![CDATA[$P{datum}]]></expression>
+		</element>
+		<element kind="textField" uuid="4fff6259-5b97-4215-98bd-24eb371d8039" x="444" y="30" width="111" height="30">
+			<expression><![CDATA[$P{tip}]]></expression>
+		</element>
+		<element kind="textField" uuid="bb2f34c0-b932-4264-b63f-aff0244f65b1" x="333" y="30" width="111" height="30">
+			<expression><![CDATA[$P{korisnik}]]></expression>
+		</element>
+		<element kind="textField" uuid="8554420d-6dcc-4411-a87a-04c96da4d43b" x="222" y="30" width="111" height="30">
+			<expression><![CDATA[$P{opis}]]></expression>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

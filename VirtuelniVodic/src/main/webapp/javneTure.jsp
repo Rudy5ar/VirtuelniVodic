@@ -131,12 +131,14 @@ tr:hover {
                     <tr>
                         <th>Naziv ture</th>
                         <th>Opis ture</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><a href="http://localhost:8080/Muzej/umetnickoDelo/delaUTuri?idTure=${tura.idTura }">${tura.naziv}</a></td>
                         <td>${tura.opis}</td>
+                        <td><a href="http://localhost:8080/Muzej/tura/pdf?idTura=${tura.idTura }">Izveštaj o turu</a></td>
                     </tr>
                 </tbody>
             </table>
