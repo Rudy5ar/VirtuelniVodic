@@ -120,7 +120,7 @@ public class TuraService {
 
 		return allDelos.stream()
 				.filter(delo -> !delo.equals(currentDelo))
-				.mapToInt(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
+				.mapToInt(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina()),"driving-car"))
 				.sum();
 	}
 

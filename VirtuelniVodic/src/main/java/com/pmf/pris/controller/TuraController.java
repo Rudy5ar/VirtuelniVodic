@@ -1,11 +1,12 @@
 package com.pmf.pris.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pmf.pris.maps.OpenRouteService;
+import com.pmf.pris.repository.UmetnickoDeloRepository;
 import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.service.TuraService;
@@ -13,7 +14,7 @@ import com.pmf.pris.service.TuraService;
 import jakarta.servlet.http.HttpServletRequest;
 import model.Tura;
 
-@Controller
+@RestController
 @RequestMapping("tura")
 public class TuraController {
 	
@@ -22,7 +23,10 @@ public class TuraController {
 
 	@Autowired
 	OpenRouteService openRouteService;
-	
+
+	@Autowired
+	UmetnickoDeloRepository umetnickoDeloRepository;
+
 	@PostMapping("kreirajTuru")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
 		
@@ -104,15 +108,26 @@ public class TuraController {
     }
 
     @GetMapping("razdaljinaDvaDela")
-    public int getDistance(
+    public int razdaljinaDvaDela(
             @RequestParam String prviLat,
             @RequestParam String prviLong,
             @RequestParam String drugiLat,
             @RequestParam String drugiLong,
+			@RequestParam String mode,
             HttpServletRequest request) {
-        int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong);
+        int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong, mode);
         request.setAttribute("distance", distance);
         return distance;
     }
+
+	@GetMapping("napraviRutu")
+	public List<Integer> napraviRutu(){
+		List<double[]> lista = new ArrayList<>();
+		lista.add(new double[]{20.4489, 44.7866});
+		lista.add(new double[]{20.4546, 44.8179});
+		lista.add(new double[]{20.4659, 44.8150});
+		lista.add(new double[]{20.5011, 44.8171});
+		return openRouteService.findShortestRoute(openRouteService.getDurationsMatrix(lista, "driving-car"));
+	}
 
 }
