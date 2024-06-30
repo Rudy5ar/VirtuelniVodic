@@ -38,4 +38,8 @@ public class Tura implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy="turas")
 	private List<Umetnickodelo> umetnickodelos;
 
+	public List<Umetnickodelo> getUmetnickodelos() {
+		return umetnickodelos;
+	}
+
 }

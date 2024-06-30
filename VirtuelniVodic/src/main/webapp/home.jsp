@@ -20,6 +20,7 @@
         <a href="http://localhost:8080/Muzej/kreiranjeTure.jsp">Kreirajte novu turu</a>
         <a href="tura/prikaziJavne">Javne ture</a>
         <a href="tura/prikaziPrivatne">Privatne ture</a>
+        <a href="http://localhost:8080/Muzej/kreiranjeClanka.jsp">Kreiranje clanka</a>
         <a href="http://localhost:8080/Muzej/urediPredmet.jsp">Uredi predmet</a>
     </nav>
     <div class="container">
