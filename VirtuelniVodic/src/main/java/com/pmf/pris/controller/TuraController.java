@@ -122,12 +122,13 @@ public class TuraController {
 
 	@GetMapping("napraviRutu")
 	public List<Integer> napraviRutu(){
-		List<double[]> lista = new ArrayList<>();
-		lista.add(new double[]{20.4489, 44.7866});
-		lista.add(new double[]{20.4546, 44.8179});
-		lista.add(new double[]{20.4659, 44.8150});
-		lista.add(new double[]{20.5011, 44.8171});
-		return openRouteService.findShortestRoute(openRouteService.getDurationsMatrix(lista, "driving-car"));
+		List<Umetnickodelo> delos = new ArrayList<>();
+		delos.add(umetnickoDeloRepository.findById(1).get());
+		delos.add(umetnickoDeloRepository.findById(2).get());
+		delos.add(umetnickoDeloRepository.findById(3).get());
+		delos.add(umetnickoDeloRepository.findById(4).get());
+
+		return openRouteService.findShortestRoute(openRouteService.getDurationsMatrix(delos, "driving-car"));
 	}
 
 }

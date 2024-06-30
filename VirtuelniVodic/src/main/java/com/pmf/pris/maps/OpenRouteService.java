@@ -2,6 +2,7 @@ package com.pmf.pris.maps;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Umetnickodelo;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -61,15 +62,20 @@ public class OpenRouteService {
     }
 
     // Method to get the durations matrix from OpenRouteService
-    public double[][] getDurationsMatrix(List<double[]> locations, String profile) {
+    public double[][] getDurationsMatrix(List<Umetnickodelo> delos, String profile) {
         String url = MATRIX_API_URL + profile;
+
+        List<double[]> extracted = new ArrayList<>();
+        for(Umetnickodelo delo : delos){
+            extracted.add(new double[]{delo.getGeografskaDuzina(), delo.getGeografskaSirina()});
+        }
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", API_KEY);
 
         // Construct JSON body for the request
-        String body = constructRequestBody(locations);
+        String body = constructRequestBody(extracted);
 
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
