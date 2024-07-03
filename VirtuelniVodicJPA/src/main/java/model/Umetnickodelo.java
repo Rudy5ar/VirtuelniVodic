@@ -91,4 +91,8 @@ public class Umetnickodelo implements Serializable {
 		return naziv + " " + opis + " " + datum + " " + geografskaDuzina;
 	}
 
+	public void setUmetnik(Umetnik umetnik) {
+		this.umetnik = umetnik;
+	}
+
 }
