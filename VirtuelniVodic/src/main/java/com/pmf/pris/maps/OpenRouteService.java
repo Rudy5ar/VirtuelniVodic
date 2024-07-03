@@ -2,182 +2,96 @@ package com.pmf.pris.maps;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.pmf.pris.model.dto.UmetnickoDeloDTO;
 import model.Umetnickodelo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OpenRouteService {
 
-    private static final String API_KEY = "5b3ce3597851110001cf62487ffb754b71cc46e79354c1777b9efdd1";
-    private static final String MATRIX_API_URL = "https://api.openrouteservice.org/v2/matrix/";
+    private final String API_KEY = "5b3ce3597851110001cf62487ffb754b71cc46e79354c1777b9efdd1";
+    private final String BASE_URL = "https://api.openrouteservice.org/v2/directions/driving-car";
+    private final String DISTANCE_URL = "https://api.openrouteservice.org/v2/matrix/driving-car";
 
-    public int getDistance(String prviLat, String prviLong, String drugiLat, String drugiLong, String mode) {
-        // Validate mode
-        if (!"driving-car".equals(mode) && !"foot-walking".equals(mode)) {
-            throw new IllegalArgumentException("Mode must be either 'driving-car' or 'foot-walking'");
-        }
+    private final RestTemplate restTemplate;
 
-        String url = MATRIX_API_URL + mode + "?api_key=" + API_KEY + "&start=" + prviLong + "," + prviLat + "&end=" + drugiLong + "," + drugiLat;
-
-        // Set up headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", API_KEY);
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
-
-        // Send request
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
-        // Parse JSON response
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            JsonNode rootNode = mapper.readTree(response.getBody());
-            JsonNode distanceNode = rootNode
-                    .path("features")
-                    .get(0)
-                    .path("properties")
-                    .path("segments")
-                    .get(0)
-                    .path("distance");
-
-            double distanceInMeters = distanceNode.asDouble();
-            // Convert distance from meters to kilometers and then to integer
-            return (int) (distanceInMeters / 1000);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to parse JSON response", e);
-        }
+    public OpenRouteService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    // Method to get the durations matrix from OpenRouteService
-    public double[][] getDurationsMatrix(List<Umetnickodelo> delos, String profile) {
-        String url = MATRIX_API_URL + profile;
-
-        List<double[]> extracted = new ArrayList<>();
-        for(Umetnickodelo delo : delos){
-            extracted.add(new double[]{delo.getGeografskaDuzina(), delo.getGeografskaSirina()});
-        }
+    public String getOptimizedRoute(List<UmetnickoDeloDTO> delos) {
+        String jsonPayload = buildJsonPayload(delos);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", API_KEY);
+        headers.set("Authorization", "Bearer " + API_KEY);
+        headers.set("Content-Type", "application/json");
 
-        // Construct JSON body for the request
-        String body = constructRequestBody(extracted);
+        HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
 
-        HttpEntity<String> entity = new HttpEntity<>(body, headers);
-        RestTemplate restTemplate = new RestTemplate();
-
-        // Send request
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-        // Parse the response to extract the durations matrix
-        return parseDurationsMatrix(response.getBody());
+        ResponseEntity<String> response = restTemplate.postForEntity(BASE_URL, entity, String.class);
+        return response.getBody();
     }
 
-    // Method to find the shortest route based on the durations matrix (TSP Solver)
-    public List<Integer> findShortestRoute(double[][] durations) {
-        int n = durations.length;
-        List<Integer> shortestRoute = new ArrayList<>();
-        double shortestDuration = Double.MAX_VALUE;
+    private String buildJsonPayload(List<UmetnickoDeloDTO> delos) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode requestBody = objectMapper.createObjectNode();
+        ArrayNode coordinatesArray = objectMapper.createArrayNode();
 
-        // Generate all permutations of routes (brute force approach for small n)
-        List<List<Integer>> permutations = generatePermutations(n);
-
-        for (List<Integer> route : permutations) {
-            double currentDuration = calculateRouteDuration(route, durations);
-            if (currentDuration < shortestDuration) {
-                shortestDuration = currentDuration;
-                shortestRoute = new ArrayList<>(route);
-            }
+        for (UmetnickoDeloDTO delo : delos) {
+            ArrayNode point = objectMapper.createArrayNode();
+            point.add(delo.getLongitude());
+            point.add(delo.getLatitude());
+            coordinatesArray.add(point);
         }
 
-        // Add the start point to the end to complete the loop
-        shortestRoute.add(shortestRoute.get(0));
+        requestBody.set("coordinates", coordinatesArray);
 
-        return shortestRoute;
-    }
-
-    // Helper method to construct JSON body for the matrix request
-    private String constructRequestBody(List<double[]> locations) {
-        StringBuilder body = new StringBuilder();
-        body.append("{\"locations\":[");
-        for (int i = 0; i < locations.size(); i++) {
-            double[] location = locations.get(i);
-            body.append("[").append(location[1]).append(",").append(location[0]).append("]");
-            if (i < locations.size() - 1) {
-                body.append(",");
-            }
-        }
-        body.append("]}");
-        return body.toString();
-    }
-
-    // Helper method to parse the durations matrix from the JSON response
-    private double[][] parseDurationsMatrix(String responseBody) {
-        // Use a JSON parsing library like Jackson to parse the durations array from the response
-        // Assuming the "durations" array is at the top level of the response JSON
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode root = mapper.readTree(responseBody);
-            JsonNode durationsNode = root.path("durations");
-            int n = durationsNode.size();
-            double[][] durations = new double[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    durations[i][j] = durationsNode.get(i).get(j).asDouble();
-                }
-            }
-            return durations;
+            return objectMapper.writeValueAsString(requestBody);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to parse durations matrix from response", e);
+            throw new RuntimeException("Failed to build JSON payload", e);
         }
     }
 
-    // Helper method to generate all permutations of route indices
-    private List<List<Integer>> generatePermutations(int n) {
-        List<List<Integer>> permutations = new ArrayList<>();
-        List<Integer> nums = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            nums.add(i);
-        }
-        generatePermutationsHelper(nums, 0, permutations);
-        return permutations;
+    public double getDistance(Umetnickodelo delo1, Umetnickodelo delo2) {
+        String jsonPayload = buildDistancePayload(delo1, delo2);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + API_KEY);
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(DISTANCE_URL, entity, String.class);
+        return parseDistanceResponse(response.getBody());
     }
 
-    // Recursive helper method to generate permutations
-    private void generatePermutationsHelper(List<Integer> nums, int index, List<List<Integer>> permutations) {
-        if (index == nums.size() - 1) {
-            permutations.add(new ArrayList<>(nums));
-            return;
-        }
-        for (int i = index; i < nums.size(); i++) {
-            Collections.swap(nums, i, index);
-            generatePermutationsHelper(nums, index + 1, permutations);
-            Collections.swap(nums, i, index);
-        }
+    private String buildDistancePayload(Umetnickodelo delo1, Umetnickodelo delo2) {
+        return String.format(
+                "{\"locations\": [[%f, %f], [%f, %f]], \"metrics\": [\"distance\"]}",
+                delo1.getGeografskaDuzina(), delo1.getGeografskaSirina(),
+                delo2.getGeografskaDuzina(), delo2.getGeografskaSirina()
+        );
     }
 
-    // Helper method to calculate the total duration of a given route
-    private double calculateRouteDuration(List<Integer> route, double[][] durations) {
-        double totalDuration = 0;
-        for (int i = 0; i < route.size() - 1; i++) {
-            totalDuration += durations[route.get(i)][route.get(i + 1)];
+    private double parseDistanceResponse(String response) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(response);
+            JsonNode distancesNode = rootNode.path("distances");
+            return distancesNode.get(0).get(1).asDouble();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to parse distance response", e);
         }
-        // Add the duration to return to the starting point
-        totalDuration += durations[route.get(route.size() - 1)][route.get(0)];
-        return totalDuration;
     }
 }

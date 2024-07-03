@@ -3,7 +3,10 @@ package com.pmf.pris.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pmf.pris.maps.OpenRouteService;
+import com.pmf.pris.model.dto.UmetnickoDeloDTO;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,27 +111,63 @@ public class TuraController {
     }
 
     @GetMapping("razdaljinaDvaDela")
-    public int razdaljinaDvaDela(
-            @RequestParam String prviLat,
-            @RequestParam String prviLong,
+    public double razdaljinaDvaDela(
+            @RequestParam Umetnickodelo prviLat,
+            @RequestParam Umetnickodelo prviLong,
             @RequestParam String drugiLat,
             @RequestParam String drugiLong,
 			@RequestParam String mode,
             HttpServletRequest request) {
-        int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong, mode);
+        double distance = openRouteService.getDistance(prviLat, prviLong);
         request.setAttribute("distance", distance);
         return distance;
     }
 
 	@GetMapping("napraviRutu")
-	public List<Integer> napraviRutu(){
-		List<Umetnickodelo> delos = new ArrayList<>();
-		delos.add(umetnickoDeloRepository.findById(1).get());
-		delos.add(umetnickoDeloRepository.findById(2).get());
-		delos.add(umetnickoDeloRepository.findById(3).get());
-		delos.add(umetnickoDeloRepository.findById(4).get());
+	public List<UmetnickoDeloDTO> napraviRutu() {
+		try {
+			UmetnickoDeloDTO pom = new UmetnickoDeloDTO(null, null, 0, 0);
+			UmetnickoDeloDTO dela1 = pom.toDto(umetnickoDeloRepository.findById(7).get());
+			UmetnickoDeloDTO dela2 = pom.toDto(umetnickoDeloRepository.findById(8).get());
+			UmetnickoDeloDTO dela3 = pom.toDto(umetnickoDeloRepository.findById(9).get());
+			UmetnickoDeloDTO dela4 = pom.toDto(umetnickoDeloRepository.findById(6).get());
+			List<UmetnickoDeloDTO> dela = List.of(dela1, dela2, dela3, dela4);
+			String response = openRouteService.getOptimizedRoute(dela);
+			return parseAndReorderDelos(response, dela);
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to get optimized route", e);
+		}
+	}
 
-		return openRouteService.findShortestRoute(openRouteService.getDurationsMatrix(delos, "driving-car"));
+	private List<UmetnickoDeloDTO> parseAndReorderDelos(String response, List<UmetnickoDeloDTO> delos) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(response);
+
+		List<UmetnickoDeloDTO> orderedDelos = new ArrayList<>();
+
+		// Process each feature node if present and has correct structure
+		rootNode.path("features").forEach(featureNode -> {
+			JsonNode geometryNode = featureNode.path("geometry");
+			if (geometryNode.isMissingNode()) {
+				return; // Skip if 'geometry' node is missing
+			}
+
+			JsonNode coordinatesNode = geometryNode.path("coordinates");
+			if (!coordinatesNode.isArray() || coordinatesNode.size() < 2) {
+				return; // Skip if 'coordinates' array is missing or incomplete
+			}
+
+			double longitude = coordinatesNode.get(0).asDouble();
+			double latitude = coordinatesNode.get(1).asDouble();
+
+			// Find corresponding UmetnickoDeloDTO based on coordinates
+			delos.stream()
+					.filter(d -> d.getLatitude() == latitude && d.getLongitude() == longitude)
+					.findFirst()
+					.ifPresent(orderedDelos::add);
+		});
+
+		return orderedDelos;
 	}
 
 }
