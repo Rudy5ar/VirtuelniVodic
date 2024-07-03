@@ -126,7 +126,7 @@ tr:hover {
     <div class="container">
         <h2>Kreiranje ture</h2>
        
-		<form action="kreirajTuru">
+		<form action="tura/kreirajTuru" method="post">
         <table>
         	<tr>
         		<td>Naziv</td>
