@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Privatne ture</title>
 <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 <style>
@@ -129,12 +129,14 @@ tr:hover {
                     <tr>
                         <th>Naziv ture</th>
                         <th>Opis ture</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><a href="http://localhost:8080/Muzej/umetnickoDelo/delaUTuri?idTure=${tura.idTura }">${tura.naziv}</a></td>
                         <td>${tura.opis}</td>
+                        <td><a href="http://localhost:8080/Muzej/tura/pdf?idTura=${tura.idTura }">Izveštaj o turu</a></td>
                     </tr>
                 </tbody>
             </table>
