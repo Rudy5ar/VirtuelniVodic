@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Izmena umetnickog predmeta</title>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
 </head>
