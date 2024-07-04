@@ -2,10 +2,6 @@ package model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -95,4 +93,8 @@ public class Umetnickodelo implements Serializable {
 		this.umetnik = umetnik;
 	}
 
+	public Umetnik getUmetnik() {
+		return this.umetnik;
+	}
+	
 }

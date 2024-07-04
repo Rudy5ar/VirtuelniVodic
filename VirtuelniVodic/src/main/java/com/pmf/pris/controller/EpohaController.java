@@ -18,7 +18,7 @@ public class EpohaController {
 	
 	@GetMapping("sveEpohe")
 	public String sveEpohe(HttpServletRequest request) {
-		request.getSession().setAttribute("sveEpohe", es.sveEpohe());
+		request.getSession().setAttribute("sveEpohe", es.getAllEpohe());
 		return "epoha";
 	}
 	

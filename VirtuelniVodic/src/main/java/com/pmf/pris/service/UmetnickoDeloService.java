@@ -64,6 +64,14 @@ public class UmetnickoDeloService {
 		return true;
 	}
 	
+	public Umetnickodelo findById(int id) {
+        return udr.findById(id).orElse(null);
+    }
+	
+	public Umetnickodelo save(Umetnickodelo umetnickodelo) {
+        return udr.save(umetnickodelo);
+    }
+	
 	public boolean izmeniOpisUmetnickogDela(int idUmetnickoDelo, String noviOpis) {
         try {
             Umetnickodelo delo = udr.findById(idUmetnickoDelo).orElse(null);
