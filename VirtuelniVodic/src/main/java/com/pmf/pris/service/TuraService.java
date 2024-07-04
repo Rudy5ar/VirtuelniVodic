@@ -31,6 +31,7 @@ public class TuraService {
 		novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
 		novaTura.setNaziv(naziv);
 		novaTura.setOpis(opis);
+		novaTura.setTip("privatna");
 		try {
 			tr.save(novaTura);
 		} catch (Exception e) {
