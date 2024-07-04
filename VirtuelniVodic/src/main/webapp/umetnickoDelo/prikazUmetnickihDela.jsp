@@ -10,7 +10,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp" />
-<h1>Lista umetnickih dela</h1>
+<h2>Lista umetnickih predmeta</h2>
 <table>
     <tr>
         <th>Naziv</th>

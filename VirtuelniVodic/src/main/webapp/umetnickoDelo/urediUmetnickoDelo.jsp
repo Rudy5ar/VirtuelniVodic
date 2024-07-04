@@ -11,7 +11,7 @@
 </head>
 <body>
 <jsp:include page="../header.jsp" />
-<h1>Izmeni umetnicki predmet</h1>
+<h2>Izmeni umetnicki predmet</h2>
 <form action="http://localhost:8080/Muzej/umetnickoDelo/edit/${umetnickoDelo.idUmetnickoDelo}" method="post">
     <input type="hidden" name="idUmetnickoDelo" value="${umetnickoDelo.idUmetnickoDelo}"/>
 <table>
