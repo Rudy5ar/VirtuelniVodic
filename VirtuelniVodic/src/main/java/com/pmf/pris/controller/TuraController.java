@@ -1,32 +1,35 @@
 package com.pmf.pris.controller;
 
 import java.io.OutputStream;
-import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.pmf.pris.maps.OpenRouteService;
-import model.Umetnickodelo;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pmf.pris.maps.OpenRouteService;
 import com.pmf.pris.service.TuraService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import model.Tura;
+import model.Umetnickodelo;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping("tura")
@@ -81,9 +84,9 @@ public class TuraController {
 	}
 
 	@GetMapping("prikaziJavne")
-	public String prikaziJavne(HttpServletRequest request) {
+	public String prikaziJavne(Model model) {
 		List<Tura> javne = ts.getJavne();
-		request.setAttribute("listaJavnih", javne);
+		model.addAttribute("listaJavnih", javne);
 		
 		return "javneTure";
 	}
@@ -138,15 +141,15 @@ public class TuraController {
     	Tura tura = ts.getById(idTura);
     	
     	Map<String, Object> param = new HashMap<>();
-    	param.put("naziv", tura.getNaziv());
-    	param.put("opis", tura.getOpis());
-    	param.put("tip", tura.getTip());
-    	param.put("korisnik", tura.getKorisnik().getKorisnickoIme());
-    	param.put("datum", Instant.now());
+    	param.put("nazivTure", tura.getNaziv());
+    	param.put("datum", new Date());
     	
-    	JRDataSource dataSource = new JREmptyDataSource();
+    	JRDataSource dataSource = new JRBeanCollectionDataSource(tura.getUmetnickodelos());
     	
     	JasperPrint print = JasperFillManager.fillReport(report, param, dataSource);
+    	
+    	response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition", "attachment; filename=tura.pdf");
     	
     	OutputStream out = response.getOutputStream();
 		JasperExportManager.exportReportToPdfStream(print, out);

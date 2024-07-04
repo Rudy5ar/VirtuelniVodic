@@ -1,53 +1,58 @@
 <!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
-<jasperReport name="reportTure" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be8a8296-9b60-4e1d-8c89-901df93cd911">
+<jasperReport name="reportTure" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be8a8296-9b60-4e1d-8c89-901df93cd911">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<parameter name="naziv" class="java.lang.String"/>
-	<parameter name="datum" class="java.time.Instant"/>
-	<parameter name="opis" class="java.lang.String"/>
-	<parameter name="korisnik" class="java.lang.String"/>
-	<parameter name="tip" class="java.lang.String"/>
+	<parameter name="nazivTure" class="java.lang.String"/>
+	<parameter name="datum" class="java.util.Date"/>
 	<query language="sql"><![CDATA[]]></query>
+	<field name="datum" class="java.util.Date"/>
+	<field name="naziv" class="java.lang.String"/>
+	<field name="opis" class="java.lang.String"/>
 	<background splitType="Stretch"/>
 	<title height="79" splitType="Stretch">
-		<element kind="staticText" uuid="7d9dbd78-684e-420a-a12d-86233923d971" x="0" y="0" width="555" height="79" fontSize="18.0" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[Tura]]></text>
+		<element kind="textField" uuid="91a3b9bb-fbfc-4f7c-b74e-075d20d1b067" x="0" y="0" width="555" height="79" fontSize="20.0" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$P{nazivTure}]]></expression>
 		</element>
 	</title>
-	<pageHeader height="35" splitType="Stretch"/>
-	<columnHeader height="144" splitType="Stretch">
-		<element kind="textField" uuid="46193082-8795-427a-ba26-4ecdff5a2f72" x="0" y="0" width="111" height="30">
-			<expression><![CDATA["Naziv ture"]]></expression>
+	<pageHeader height="46" splitType="Stretch">
+		<element kind="staticText" uuid="14878f62-a041-4ed4-94c6-a1d79d0e43ae" x="0" y="16" width="555" height="30" fontSize="15.0" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Umetnička dela ture:]]></text>
 		</element>
-		<element kind="textField" uuid="598028ea-9909-423e-8f59-50639b4e4cc4" x="111" y="0" width="111" height="30">
-			<expression><![CDATA["Datum"]]></expression>
+	</pageHeader>
+	<columnHeader height="30" splitType="Stretch">
+		<element kind="staticText" uuid="355b2d63-ce78-4af4-b5e4-04b777bc05e4" x="0" y="0" width="185" height="30" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Datum]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef9f0462-7027-4c50-85d4-30e571d24484"/>
 		</element>
-		<element kind="textField" uuid="ed058e66-0980-49a8-b080-778a4306927a" x="222" y="0" width="111" height="30">
-			<expression><![CDATA["Opis ture"]]></expression>
+		<element kind="staticText" uuid="0159b2c9-8f4a-4dbb-9164-42ff50177c8a" x="185" y="0" width="185" height="30" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Naziv umetničkog dela]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="405f96c2-d9cc-4bd4-8d18-25badcfe01d8"/>
 		</element>
-		<element kind="textField" uuid="fc694a7d-0a31-45d2-934e-b9134035aa1c" x="333" y="0" width="111" height="30">
-			<expression><![CDATA["Korisnik"]]></expression>
-		</element>
-		<element kind="textField" uuid="7c1e6f3a-a97e-40ee-9a8f-e1c2356b772a" x="444" y="0" width="111" height="30">
-			<expression><![CDATA["Tip ture"]]></expression>
-		</element>
-		<element kind="textField" uuid="a2b3abc9-7438-4dd4-b7cc-32d7f6782026" x="0" y="30" width="111" height="30">
-			<expression><![CDATA[$P{naziv}]]></expression>
-		</element>
-		<element kind="textField" uuid="6d569201-a087-45d3-bf6b-e7adbd56c260" x="111" y="30" width="111" height="30">
-			<expression><![CDATA[$P{datum}]]></expression>
-		</element>
-		<element kind="textField" uuid="4fff6259-5b97-4215-98bd-24eb371d8039" x="444" y="30" width="111" height="30">
-			<expression><![CDATA[$P{tip}]]></expression>
-		</element>
-		<element kind="textField" uuid="bb2f34c0-b932-4264-b63f-aff0244f65b1" x="333" y="30" width="111" height="30">
-			<expression><![CDATA[$P{korisnik}]]></expression>
-		</element>
-		<element kind="textField" uuid="8554420d-6dcc-4411-a87a-04c96da4d43b" x="222" y="30" width="111" height="30">
-			<expression><![CDATA[$P{opis}]]></expression>
+		<element kind="staticText" uuid="bd373a6a-a640-40bc-b988-490ae7ce181d" x="370" y="0" width="185" height="30" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Opis]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f362a214-841d-49cc-a8c8-1810b39f2e8c"/>
 		</element>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="30" splitType="Stretch">
+			<element kind="textField" uuid="b7bf763a-a172-44ff-9a66-fcd8445008d9" x="0" y="0" width="185" height="30" vTextAlign="Middle">
+				<paragraph leftIndent="5"/>
+				<expression><![CDATA[$F{datum}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef9f0462-7027-4c50-85d4-30e571d24484"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			</element>
+			<element kind="textField" uuid="e926eb7d-cf80-43ce-b444-45742fb8ded8" x="185" y="0" width="185" height="30" vTextAlign="Middle">
+				<paragraph leftIndent="5"/>
+				<expression><![CDATA[$F{naziv}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="405f96c2-d9cc-4bd4-8d18-25badcfe01d8"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			</element>
+			<element kind="textField" uuid="3f00e46d-4063-405e-99f3-a98fd89e9fdc" x="370" y="0" width="185" height="30" vTextAlign="Middle">
+				<paragraph leftIndent="5"/>
+				<expression><![CDATA[$F{opis}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f362a214-841d-49cc-a8c8-1810b39f2e8c"/>
+				<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+			</element>
+		</band>
 	</detail>
 	<columnFooter height="45" splitType="Stretch"/>
 	<pageFooter height="54" splitType="Stretch"/>
