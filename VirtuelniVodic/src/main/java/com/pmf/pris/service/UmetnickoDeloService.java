@@ -120,5 +120,10 @@ public class UmetnickoDeloService {
     public Umetnickodelo getDetaljiUmetnickogDela(int idUmetnickoDelo) {
         return udr.findById(idUmetnickoDelo).orElse(null);
     }
+    
+    public List<Umetnickodelo> findAllById(List<Integer> ids) {
+        return udr.findAllById(ids);
+    }
+
 
 }

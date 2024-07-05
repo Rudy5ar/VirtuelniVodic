@@ -2,16 +2,20 @@ package com.pmf.pris.controller;
 
 import java.util.List;
 
-import com.pmf.pris.maps.OpenRouteService;
-import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pmf.pris.maps.OpenRouteService;
 import com.pmf.pris.service.TuraService;
+import com.pmf.pris.service.UmetnickoDeloService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.Tura;
+import model.Umetnickodelo;
 
 @Controller
 @RequestMapping("tura")
@@ -23,18 +27,30 @@ public class TuraController {
 	@Autowired
 	OpenRouteService openRouteService;
 	
+	@Autowired
+	UmetnickoDeloService  umetnickoDeloService;
+	
 	@PostMapping("kreirajTuru")
-	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
-		
+	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis, @RequestParam("tip") String tip, @RequestParam("umetnickaDela") List<Integer> umetnickaDelaIds) {
 		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		if(!ts.kreirajTuru(naziv, opis, 1)) {
+		Tura t = ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDelaIds);
+		if(t == null) {
 			request.setAttribute("uspelo", "Nije kreirana tura");
 			System.out.println();
 			return "ture/turaNijeSacuvana";
 		}
+		List<Umetnickodelo> umetnickaDela = t.getUmetnickodelos();
+		request.setAttribute("tura", t);
+		request.setAttribute("umetnickaDela", umetnickaDela);
 		request.setAttribute("uspelo", "Kreirana tura");
 		return "ture/prikaziSacuvanuTuru";
 	}
+	
+	@GetMapping("getUmetnickaDela")
+    public String getUmetnickaDela(HttpServletRequest request) {
+    	request.setAttribute("umetnickaDela", umetnickoDeloService.getDela());
+    	return "kreiranjeTure";
+    }
 	
 	@PostMapping("promeniTuru")
 	public String promeniTuru(HttpServletRequest request, @RequestParam("idTure") int idTure, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {

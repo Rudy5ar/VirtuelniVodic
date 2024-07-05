@@ -8,7 +8,7 @@
         <a href="http://localhost:8080/Muzej/login">Ulogovanje</a>
         <a href="http://localhost:8080/Muzej/register">Registracija</a>
     </sec:authorize>
-    <a href="http://localhost:8080/Muzej/kreiranjeTure.jsp">Kreirajte novu turu</a>
+    <a href="${pageContext.request.contextPath}/tura/getUmetnickaDela">Kreirajte novu turu</a>
     <a href="${pageContext.request.contextPath}/tura/prikaziJavne">Javne ture</a>
     <a href="${pageContext.request.contextPath}/tura/prikaziPrivatne">Privatne ture</a>
     <a href="http://localhost:8080/Muzej/umetnickoDelo/svaDela">Umetnicki predmeti</a>

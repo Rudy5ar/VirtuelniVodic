@@ -15,7 +15,7 @@
     <div class="container">
         <h2>Kreiranje ture</h2>
        
-		<form action="tura/kreirajTuru" method="post">
+		<form action="kreirajTuru" method="post">
         <table>
         	<tr>
         		<td>Naziv</td>
@@ -24,6 +24,26 @@
         	<tr>
         		<td>Opis</td>
         		<td><input type="text" name="opis" value="${predmet.opis}"></td>
+        	</tr>
+        	<tr>
+        		<td>Umetnicki predmeti</td>
+        		<td>
+        			<select id="umetnickaDela" name="umetnickaDela" multiple>
+        				<c:forEach items="${umetnickaDela}" var="delo">
+            				<option value="${delo.idUmetnickoDelo}">${delo.naziv}</option>
+        				</c:forEach>
+    				</select>
+        		</td>
+        	</tr>
+        	
+        	<tr>
+        		<td>Tip</td>
+        		<td>
+        			<input type="radio" id="privatna" name="tip" value="privatna">
+  					<label for="privatna">Privatna</label><br>
+  					<input type="radio" id="javna" name="tip" value="javna">
+  					<label for="javna">Javna</label><br>
+        		</td>
         	</tr>
         	
         	<!--

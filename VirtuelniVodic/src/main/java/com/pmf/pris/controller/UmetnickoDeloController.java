@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pmf.pris.repository.EpohaRepository;
+import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnikRepository;
 import com.pmf.pris.service.EpohaService;
 import com.pmf.pris.service.UmetnickoDeloService;
@@ -37,13 +38,15 @@ public class UmetnickoDeloController {
     private final UmetnikRepository umetnikRepository;
     private final UmetnikService umetnikService;
     private final EpohaService epohaService;
+    private final TuraRepository turaRepository;
     
-    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService, EpohaRepository epohaRepository, UmetnikRepository umetnikRepository, UmetnikService umetnikService, EpohaService epohaService) {
+    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService, EpohaRepository epohaRepository, UmetnikRepository umetnikRepository, UmetnikService umetnikService, EpohaService epohaService, TuraRepository turaRepository) {
         this.umetnickoDeloService = umetnickoDeloService;
         this.epohaRepository = epohaRepository;
         this.umetnikRepository = umetnikRepository;
         this.umetnikService = umetnikService;
         this.epohaService = epohaService;
+        this.turaRepository = turaRepository;
     }
 
     @GetMapping("svaDela")
@@ -55,7 +58,8 @@ public class UmetnickoDeloController {
     @GetMapping("delaUTuri")
     public String delaUTuri(HttpServletRequest request, @RequestParam("idTure") int idTure) {
         request.setAttribute("delaUTuri", umetnickoDeloService.getDelaUTuri(idTure));
-        return "pregledPredmeta";
+        request.setAttribute("tura", turaRepository.findById(idTure).get());
+        return "pregledTure";
     }
 
     @PostMapping("kreirajUmetnickoDelo")

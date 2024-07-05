@@ -19,26 +19,33 @@ public class TuraService {
 	private final TuraRepository tr;
 	private final KorisnikRepository kr;
 	private final OpenRouteService routeService;
+	private final UmetnickoDeloService umetnickoDeloService;
 
-    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService) {
+    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService, UmetnickoDeloService umetnickoDeloService) {
         this.tr = tr;
         this.kr = kr;
         this.routeService = routeService;
+        this.umetnickoDeloService = umetnickoDeloService;
     }
 
-    public boolean kreirajTuru(String naziv, String opis, int i) {
+    public Tura kreirajTuru(String naziv, String opis, String tip, int i, List<Integer> umetnickaDelaIds) {
 		Tura novaTura = new Tura();
 		novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
 		novaTura.setNaziv(naziv);
 		novaTura.setOpis(opis);
+		novaTura.setTip(tip);
+		
+		List<Umetnickodelo> umetnickaDela = umetnickoDeloService.findAllById(umetnickaDelaIds);
+	    novaTura.setUmetnickodelos(umetnickaDela);
+		
 		try {
 			tr.save(novaTura);
 		} catch (Exception e) {
 			System.out.println("Nije dobro sacuvano");
-		    return false;
+		    return null;
 		}
 
-		return true;
+		return novaTura;
 	}
 	
 	public boolean promeniTuru(int idTure, String naziv, String opis) {
