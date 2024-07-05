@@ -25,6 +25,7 @@
     <div class="container">
         <h2>Dobrodosli na Virtuelni vodic!</h2>
         <p>Ovo je pocetna stranica. Molimo Vas odaberite jednu od opcija iz menija iznad.</p>
+        <a href="/Muzej/route">Ruta</a>
     </div>
 </body>
 </html>
