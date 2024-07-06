@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import model.Umetnickodelo;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +12,21 @@ import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
 
 import model.Tura;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class TuraService {
 
 	private final TuraRepository tr;
 	private final KorisnikRepository kr;
+	private final RouteService routeService;
 
-    public TuraService(TuraRepository tr, KorisnikRepository kr) {
+	public TuraService(TuraRepository tr, KorisnikRepository kr, RouteService routeService) {
         this.tr = tr;
         this.kr = kr;
-    }
+		this.routeService = routeService;
+	}
 
     public boolean kreirajTuru(String naziv, String opis, int i) {
 		Tura novaTura = new Tura();
@@ -90,6 +95,35 @@ public class TuraService {
 	public Tura sortirajPoDatumu(Tura tura){
 		tura.setUmetnickodelos(tura.getUmetnickodelos().stream().sorted(Comparator.comparing(Umetnickodelo::getDatum)).toList());
 		return tura;
+	}
+
+	public Tura sortirajPoRazdaljini(int idTure) {
+		Tura tura = tr.findById(idTure).orElseThrow(() -> new RuntimeException("Ne postoji tura"));
+		List<Umetnickodelo> delos = tura.getUmetnickodelos();
+		System.out.println(delos);
+
+		Map<Umetnickodelo, Double> deloDistances = new HashMap<>();
+		for (Umetnickodelo delo : delos) {
+			double totalDistance = calculateTotalDistance(delo, delos);
+			deloDistances.put(delo, totalDistance);
+		}
+
+		List<Umetnickodelo> sortedDelos = delos.stream()
+				.sorted(Comparator.comparing(deloDistances::get))
+				.collect(Collectors.toList());
+
+		tura.setUmetnickodelos(sortedDelos);
+		return tura;
+	}
+
+	private double calculateTotalDistance(Umetnickodelo currentDelo, List<Umetnickodelo> allDelos) {
+		String currentLat = String.valueOf(currentDelo.getGeografskaSirina());
+		String currentLong = String.valueOf(currentDelo.getGeografskaDuzina());
+
+		return allDelos.stream()
+				.filter(delo -> !delo.equals(currentDelo))
+				.mapToDouble(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
+				.sum();
 	}
 
 }

@@ -1,14 +1,10 @@
 package com.pmf.pris.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import com.pmf.pris.model.dto.UmetnickoDeloDTO;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
+import com.pmf.pris.service.RouteService;
 import model.Umetnickodelo;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +22,8 @@ public class TuraController {
 
 	@Autowired
 	UmetnickoDeloRepository umetnickoDeloRepository;
+    @Autowired
+    private RouteService routeService;
 
 	@PostMapping("kreirajTuru")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
@@ -95,5 +93,16 @@ public class TuraController {
         request.setAttribute("sortiranaPoDatumu", ts.sortirajPoDatumu(tura));
         return "ture/sortirajPoDatumu";
     }
+
+	@GetMapping("sortirajPoRazdaljini")
+	public String sortirajPoRazdaljini(HttpServletRequest request, @RequestParam("idTure") int idTure) {
+
+		Tura tura = ts.sortirajPoRazdaljini(idTure);
+		request.setAttribute("sortiranaPoRazdaljini", tura);
+		for (Umetnickodelo u : tura.getUmetnickodelos()) {
+			System.out.println(u);
+		}
+		return "ture/sortirajPoRazdaljini";
+	}
 
 }
