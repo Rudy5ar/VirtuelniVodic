@@ -3,7 +3,6 @@ package com.pmf.pris.service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.pmf.pris.maps.OpenRouteService;
 import jakarta.persistence.EntityNotFoundException;
 import model.Umetnickodelo;
 import org.springframework.stereotype.Service;
@@ -18,12 +17,10 @@ public class TuraService {
 
 	private final TuraRepository tr;
 	private final KorisnikRepository kr;
-	private final OpenRouteService routeService;
 
-    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService) {
+    public TuraService(TuraRepository tr, KorisnikRepository kr) {
         this.tr = tr;
         this.kr = kr;
-        this.routeService = routeService;
     }
 
     public boolean kreirajTuru(String naziv, String opis, int i) {
@@ -95,35 +92,5 @@ public class TuraService {
 		tura.setUmetnickodelos(tura.getUmetnickodelos().stream().sorted(Comparator.comparing(Umetnickodelo::getDatum)).toList());
 		return tura;
 	}
-
-	public Tura sortirajPoRazdaljini(int idTure) {
-		Tura tura = tr.findById(idTure).orElseThrow(() -> new RuntimeException("Ne postoji tura"));
-		List<Umetnickodelo> delos = tura.getUmetnickodelos();
-		System.out.println(delos);
-
-		Map<Umetnickodelo, Integer> deloDistances = new HashMap<>();
-		for (Umetnickodelo delo : delos) {
-			int totalDistance = calculateTotalDistance(delo, delos);
-			deloDistances.put(delo, totalDistance);
-		}
-
-		List<Umetnickodelo> sortedDelos = delos.stream()
-				.sorted(Comparator.comparing(deloDistances::get))
-				.collect(Collectors.toList());
-
-		tura.setUmetnickodelos(sortedDelos);
-		return tura;
-	}
-
-	private int calculateTotalDistance(Umetnickodelo currentDelo, List<Umetnickodelo> allDelos) {
-		String currentLat = String.valueOf(currentDelo.getGeografskaSirina());
-		String currentLong = String.valueOf(currentDelo.getGeografskaDuzina());
-
-		return allDelos.stream()
-				.filter(delo -> !delo.equals(currentDelo))
-				.mapToInt(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
-				.sum();
-	}
-
 
 }

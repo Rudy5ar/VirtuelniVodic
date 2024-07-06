@@ -6,23 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.pmf.pris.repository.UmetnickoDeloRepository;
+import model.Umetnickodelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import com.pmf.pris.maps.OpenRouteService;
 import com.pmf.pris.service.TuraService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import model.Tura;
-import model.Umetnickodelo;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -31,7 +31,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-@Controller
+@RestController
 @RequestMapping("tura")
 public class TuraController {
 	
@@ -39,8 +39,8 @@ public class TuraController {
 	TuraService ts;
 
 	@Autowired
-	OpenRouteService openRouteService;
-	
+	UmetnickoDeloRepository umetnickoDeloRepository;
+
 	@PostMapping("kreirajTuru")
 	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
 		
@@ -121,36 +121,24 @@ public class TuraController {
         return "ture/sortirajPoRazdaljini";
     }
 
-    @GetMapping("razdaljinaDvaDela")
-    public int getDistance(
-            @RequestParam String prviLat,
-            @RequestParam String prviLong,
-            @RequestParam String drugiLat,
-            @RequestParam String drugiLong,
-            HttpServletRequest request) {
-        int distance = openRouteService.getDistance(prviLat, prviLong, drugiLat, drugiLong);
-        request.setAttribute("distance", distance);
-        return distance;
-    }
-    
     @SneakyThrows
     @GetMapping("/pdf")
     public void getTuraPdf(HttpServletRequest request, HttpServletResponse response, @RequestParam Integer idTura) {
     	JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("reports/reportTure.jrxml").getInputStream());
-    	
+
     	Tura tura = ts.getById(idTura);
-    	
+
     	Map<String, Object> param = new HashMap<>();
     	param.put("nazivTure", tura.getNaziv());
     	param.put("datum", new Date());
-    	
+
     	JRDataSource dataSource = new JRBeanCollectionDataSource(tura.getUmetnickodelos());
-    	
+
     	JasperPrint print = JasperFillManager.fillReport(report, param, dataSource);
-    	
+
     	response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=tura.pdf");
-    	
+
     	OutputStream out = response.getOutputStream();
 		JasperExportManager.exportReportToPdfStream(print, out);
     }
