@@ -12,6 +12,7 @@
     <a href="${pageContext.request.contextPath}/tura/prikaziJavne">Javne ture</a>
     <a href="${pageContext.request.contextPath}/tura/prikaziPrivatne">Privatne ture</a>
     <a href="http://localhost:8080/Muzej/umetnickoDelo/svaDela">Umetnicki predmeti</a>
+    <a href="${pageContext.request.contextPath}/umetnickoDelo/getPodaciZaFormuKreiranje">Kreiraj umetnicki predmet</a>
     <sec:authorize access="hasAuthority('ADMIN')"><a href="admin">Admin strana</a></sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <a href="http://localhost:8080/Muzej/logout">Odjava</a>

@@ -49,6 +49,13 @@ public class UmetnickoDeloController {
         this.turaRepository = turaRepository;
     }
 
+    @GetMapping("getPodaciZaFormuKreiranje")
+    public String getUmetnici(HttpServletRequest request) {
+    	request.setAttribute("sviUmetnici", umetnikRepository.findAll());
+    	request.setAttribute("sveEpohe", epohaRepository.findAll());
+    	return "umetnickoDelo/kreiranjeUmetnickogDela";
+    }
+    
     @GetMapping("svaDela")
     public String svaDela(HttpServletRequest request) {
         request.setAttribute("svaDela", umetnickoDeloService.getDela());
@@ -67,13 +74,16 @@ public class UmetnickoDeloController {
                               @RequestParam("opis") String opis, @RequestParam("datum") Date datum,
                               @RequestParam("geografskaDuzina") double geografskaDuzina, @RequestParam("geografskaSirina") double geografskaSirina,
                               @RequestParam("umetnikId") int umetnikId, @RequestParam("opstost1") String opstost1,
-                              @RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3) {
+                              @RequestParam("opstost2") String opstost2, @RequestParam("opstost3") String opstost3, @RequestParam("epohe") List<Epoha> epohe) {
 
-        if (!umetnickoDeloService.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, umetnikId, opstost1, opstost2, opstost3)) {
+        Umetnickodelo ud = umetnickoDeloService.kreirajUmetnickoDelo(naziv, opis, datum, geografskaDuzina, geografskaSirina, umetnikId, opstost1, opstost2, opstost3, epohe);
+    	if (ud == null) {
             request.setAttribute("uspelo", "Nije kreirano umetnicko delo");
             return "umetnickoDeloNijeSacuvano";
         }
         request.setAttribute("uspelo", "Kreirano umetnicko delo");
+        request.setAttribute("umetnickoDelo", ud);
+        request.setAttribute("epohe", ud.getEpohas());
         return "prikaziSacuvanoUmetnickoDelo";
     }
 

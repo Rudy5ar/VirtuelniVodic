@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.pmf.pris.repository.EpohaRepository;
 import com.pmf.pris.repository.TuraRepository;
-import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 import com.pmf.pris.repository.UmetnikRepository;
 
+import model.Epoha;
 import model.Tura;
 import model.Umetnickodelo;
 import model.Umetnik;
@@ -41,8 +41,8 @@ public class UmetnickoDeloService {
         return udr.findAll();
     }
 
-	public boolean kreirajUmetnickoDelo(String naziv, String opis, Date datum,
-			double geografskaDuzina, double geografskaSirina, int umetnikId, String opstost1, String opstost2, String opstost3) {
+	public Umetnickodelo kreirajUmetnickoDelo(String naziv, String opis, Date datum,
+			double geografskaDuzina, double geografskaSirina, int umetnikId, String opstost1, String opstost2, String opstost3, List<Epoha> epohe) {
 		Umetnickodelo novaUmetnickoDelo = new Umetnickodelo();
 		novaUmetnickoDelo.setNaziv(naziv);
 		novaUmetnickoDelo.setOpis(opis);
@@ -53,15 +53,16 @@ public class UmetnickoDeloService {
 		novaUmetnickoDelo.setOpstost1(opstost1);
 		novaUmetnickoDelo.setOpstost2(opstost2);
 		novaUmetnickoDelo.setOpstost3(opstost3);
+		novaUmetnickoDelo.setEpohas(epohe);
 
 		try {
 			udr.save(novaUmetnickoDelo);
 		} catch (Exception e) {
 			System.out.println("Nije dobro sacuvano");
-		    return false;
+		    return null;
 		}
 
-		return true;
+		return novaUmetnickoDelo;
 	}
 	
 	public Umetnickodelo findById(int id) {
