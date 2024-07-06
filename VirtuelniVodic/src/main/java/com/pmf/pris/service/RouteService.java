@@ -1,6 +1,6 @@
 package com.pmf.pris.service;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
@@ -26,6 +26,17 @@ public class RouteService {
         // Log the response for debugging
         logger.info("API Response: " + response.getBody());
 
+        return response.getBody();
+    }
+
+    public String getRouteMultiple(String coordinates){
+        String url = "https://api.openrouteservice.org/v2/directions/driving-car";
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", apiKey);
+        HttpEntity<String> request = new HttpEntity<String>(coordinates, headers);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         return response.getBody();
     }
 
