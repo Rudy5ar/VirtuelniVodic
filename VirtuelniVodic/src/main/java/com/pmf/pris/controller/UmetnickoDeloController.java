@@ -26,6 +26,7 @@ import com.pmf.pris.service.UmetnikService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import model.Epoha;
+import model.Tura;
 import model.Umetnickodelo;
 import model.Umetnik;
 
@@ -64,8 +65,10 @@ public class UmetnickoDeloController {
 
     @GetMapping("delaUTuri")
     public String delaUTuri(HttpServletRequest request, @RequestParam("idTure") int idTure) {
+    	Tura t = turaRepository.findById(idTure).get();
         request.setAttribute("delaUTuri", umetnickoDeloService.getDelaUTuri(idTure));
-        request.setAttribute("tura", turaRepository.findById(idTure).get());
+        request.setAttribute("tura", t);
+        request.setAttribute("tip", t.getTip());
         return "pregledTure";
     }
 

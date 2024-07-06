@@ -17,7 +17,6 @@
         <p>Mozete odabrati koliko detaljan opis svakog predmeta zelite da vidite.</p>
         
          <form action="${pageContext.request.contextPath}/umetnickoDelo/updateOpisi" method="post">
-            <c:forEach var="predmet" items="${delaUTuri}">
                 <table>
                     <thead>
                         <tr>
@@ -26,6 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
+            <c:forEach var="predmet" items="${delaUTuri}">
                         <tr>
                             <td>${predmet.naziv}</td>
                             <td>
@@ -36,13 +36,19 @@
                                 </select>
                             </td>
                         </tr>
+            </c:forEach>
                     </tbody>
                 </table>
-            </c:forEach>
             <input type="hidden" name="idTure" value="${tura.idTura}">
         </form>
+        
+        <br>
+        <c:if test="${tip == 'privatna'}">
+        	<a href="${pageContext.request.contextPath}/ture/urediTuru.jsp">Uredi turu</a>
+        </c:if>
 
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
+        
     </div>
 </body>
 </html>

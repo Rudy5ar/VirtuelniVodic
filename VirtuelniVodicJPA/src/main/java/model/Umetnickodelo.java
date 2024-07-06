@@ -65,16 +65,7 @@ public class Umetnickodelo implements Serializable {
 	private List<Epoha> epohas;
 
 	//bi-directional many-to-many association to Tura
-	@ManyToMany
-	@JoinTable(
-		name="delotura"
-		, joinColumns={
-			@JoinColumn(name="Umetnickodelo_idUmetnickoDelo")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Tura_idTura")
-			}
-		)
+	@ManyToMany(mappedBy = "umetnickodelos")
 	private List<Tura> turas;
 
 	//bi-directional many-to-one association to Umetnik

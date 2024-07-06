@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,21 +31,49 @@ public class TuraController {
 	@Autowired
 	UmetnickoDeloService  umetnickoDeloService;
 	
-	@PostMapping("kreirajTuru")
-	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis, @RequestParam("tip") String tip, @RequestParam("umetnickaDela") List<Integer> umetnickaDelaIds) {
-		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-		Tura t = ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDelaIds);
-		if(t == null) {
-			request.setAttribute("uspelo", "Nije kreirana tura");
-			System.out.println();
-			return "ture/turaNijeSacuvana";
-		}
-		List<Umetnickodelo> umetnickaDela = t.getUmetnickodelos();
-		request.setAttribute("tura", t);
-		request.setAttribute("umetnickaDela", umetnickaDela);
-		request.setAttribute("uspelo", "Kreirana tura");
-		return "ture/prikaziSacuvanuTuru";
-	}
+	@GetMapping("/kreirajTuru")
+    public String showCreateTuraForm(Model model) {
+        model.addAttribute("umetnickaDela", umetnickoDeloService.getDela());
+        return "kreirajTuru";
+    }
+
+    @PostMapping("/kreirajTuru")
+    public String createTura(@RequestParam String naziv, @RequestParam String opis, 
+                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip, Model model) {
+    	// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
+        ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDela);
+        return "redirect:/home.jsp";
+    }
+	
+//	@PostMapping("kreirajTuru")
+//    public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis, @RequestParam("tip") String tip, @RequestParam("umetnickaDela") List<Integer> umetnickaDelaIds) {
+//        Tura t = ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDelaIds);
+//        if (t == null) {
+//            request.setAttribute("uspelo", "Nije kreirana tura");
+//            return "ture/turaNijeSacuvana";
+//        }
+//        List<Umetnickodelo> umetnickaDela = t.getUmetnickodelos();
+//        request.setAttribute("tura", t);
+//        request.setAttribute("umetnickaDela", umetnickaDela);
+//        request.setAttribute("uspelo", "Kreirana tura");
+//        return "ture/prikaziSacuvanuTuru";
+//    }
+	
+//	@PostMapping("kreirajTuru")
+//	public String kreirajTuru(HttpServletRequest request, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis, @RequestParam("tip") String tip, @RequestParam("umetnickaDela") List<Integer> umetnickaDelaIds) {
+//		// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
+//		Tura t = ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDelaIds);
+//		if(t == null) {
+//			request.setAttribute("uspelo", "Nije kreirana tura");
+//			System.out.println();
+//			return "ture/turaNijeSacuvana";
+//		}
+//		List<Umetnickodelo> umetnickaDela = t.getUmetnickodelos();
+//		request.setAttribute("tura", t);
+//		request.setAttribute("umetnickaDela", umetnickaDela);
+//		request.setAttribute("uspelo", "Kreirana tura");
+//		return "ture/prikaziSacuvanuTuru";
+//	}
 	
 	@GetMapping("getUmetnickaDela")
     public String getUmetnickaDela(HttpServletRequest request) {
@@ -73,6 +102,7 @@ public class TuraController {
 		return "ture/prikaziPromenjenuTuru";
 	}
 	
+	// ovde zapravo treba prikazati privatne ture od trenutno ulogovanog korisnika
 	@GetMapping("prikaziPrivatne")
 	public String prikaziPrivatne(HttpServletRequest request) {
 		List<Tura> privatne = ts.getPrivatne();

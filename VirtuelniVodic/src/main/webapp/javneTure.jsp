@@ -14,7 +14,6 @@
 
     <div class="container">
         <h2>Javne Ture</h2>
-        <c:forEach var="tura" items="${listaJavnih}">
             <table>
                 <thead>
                     <tr>
@@ -23,13 +22,14 @@
                     </tr>
                 </thead>
                 <tbody>
+        			<c:forEach var="tura" items="${listaJavnih}">
                     <tr>
                         <td><a href="http://localhost:8080/Muzej/umetnickoDelo/delaUTuri?idTure=${tura.idTura }">${tura.naziv}</a></td>
                         <td>${tura.opis}</td>
                     </tr>
+        			</c:forEach>
                 </tbody>
             </table>
-        </c:forEach>
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>
 </body>

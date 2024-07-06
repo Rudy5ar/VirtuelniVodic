@@ -1,17 +1,22 @@
 package com.pmf.pris.service;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.pmf.pris.maps.OpenRouteService;
-import jakarta.persistence.EntityNotFoundException;
-import model.Umetnickodelo;
 import org.springframework.stereotype.Service;
 
+import com.pmf.pris.maps.OpenRouteService;
 import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
+import com.pmf.pris.repository.UmetnickoDeloRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import model.Tura;
+import model.Umetnickodelo;
 
 @Service
 public class TuraService {
@@ -20,33 +25,57 @@ public class TuraService {
 	private final KorisnikRepository kr;
 	private final OpenRouteService routeService;
 	private final UmetnickoDeloService umetnickoDeloService;
+	private final UmetnickoDeloRepository udr;
 
-    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService, UmetnickoDeloService umetnickoDeloService) {
+    public TuraService(TuraRepository tr, KorisnikRepository kr, OpenRouteService routeService, UmetnickoDeloService umetnickoDeloService, UmetnickoDeloRepository udr) {
         this.tr = tr;
         this.kr = kr;
         this.routeService = routeService;
         this.umetnickoDeloService = umetnickoDeloService;
+        this.udr = udr;
+    }
+    
+    public Tura kreirajTuru(String naziv, String opis, String tip, int i, List<Integer> umetnickaDelaIds) {
+        Tura novaTura = new Tura();
+        novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
+        novaTura.setNaziv(naziv);
+        novaTura.setOpis(opis);
+        novaTura.setTip(tip);
+
+        List<Umetnickodelo> umetnickaDela = udr.findAllById(umetnickaDelaIds);
+        for (Umetnickodelo delo : umetnickaDela) {
+            novaTura.addUmetnickodelo(delo);
+        }
+
+        try {
+            tr.save(novaTura);
+        } catch (Exception e) {
+            System.out.println("Nije dobro sacuvano");
+            return null;
+        }
+
+        return novaTura;
     }
 
-    public Tura kreirajTuru(String naziv, String opis, String tip, int i, List<Integer> umetnickaDelaIds) {
-		Tura novaTura = new Tura();
-		novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
-		novaTura.setNaziv(naziv);
-		novaTura.setOpis(opis);
-		novaTura.setTip(tip);
-		
-		List<Umetnickodelo> umetnickaDela = umetnickoDeloService.findAllById(umetnickaDelaIds);
-	    novaTura.setUmetnickodelos(umetnickaDela);
-		
-		try {
-			tr.save(novaTura);
-		} catch (Exception e) {
-			System.out.println("Nije dobro sacuvano");
-		    return null;
-		}
-
-		return novaTura;
-	}
+//    public Tura kreirajTuru(String naziv, String opis, String tip, int i, List<Integer> umetnickaDelaIds) {
+//		Tura novaTura = new Tura();
+//		novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
+//		novaTura.setNaziv(naziv);
+//		novaTura.setOpis(opis);
+//		novaTura.setTip(tip);
+//		
+//		List<Umetnickodelo> umetnickaDela = umetnickoDeloService.findAllById(umetnickaDelaIds);
+//	    novaTura.setUmetnickodelos(umetnickaDela);
+//		
+//		try {
+//			tr.save(novaTura);
+//		} catch (Exception e) {
+//			System.out.println("Nije dobro sacuvano");
+//		    return null;
+//		}
+//
+//		return novaTura;
+//	}
 	
 	public boolean promeniTuru(int idTure, String naziv, String opis) {
 		Optional<Tura> optionalEntity = tr.findById(idTure);
