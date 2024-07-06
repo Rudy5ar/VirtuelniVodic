@@ -14,26 +14,12 @@ public class RouteService {
     private String apiKey = "5b3ce3597851110001cf62487ffb754b71cc46e79354c1777b9efdd1";
     private final String baseUrl = "https://api.openrouteservice.org/v2/directions/driving-car";
 
-    public String getRoute(String start, String end) {
-        // Build the OpenRouteService API URL
-        String url = "https://api.openrouteservice.org/v2/directions/driving-car?api_key=" + apiKey +
-                "&start=" + start + "&end=" + end;
-
-        // Create a RestTemplate instance
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-
-        // Log the response for debugging
-        logger.info("API Response: " + response.getBody());
-
-        return response.getBody();
-    }
-
-    public String getRouteMultiple(String coordinates){
+    public String getRoute(String coordinates){
         String url = "https://api.openrouteservice.org/v2/directions/driving-car";
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", apiKey);
+        System.out.println(coordinates);
         HttpEntity<String> request = new HttpEntity<String>(coordinates, headers);
         headers.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
