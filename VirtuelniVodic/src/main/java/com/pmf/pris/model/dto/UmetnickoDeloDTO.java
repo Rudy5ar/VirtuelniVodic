@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import model.Umetnickodelo;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter

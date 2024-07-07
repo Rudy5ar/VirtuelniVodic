@@ -1,21 +1,22 @@
 package com.pmf.pris.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.pmf.pris.mapper.UmetnickoDeloMapper;
+import com.pmf.pris.model.dto.UmetnickoDeloDTO;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.pmf.pris.repository.EpohaRepository;
 import com.pmf.pris.repository.TuraRepository;
@@ -30,7 +31,7 @@ import model.Tura;
 import model.Umetnickodelo;
 import model.Umetnik;
 
-@Controller
+@RestController
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
 
@@ -40,14 +41,16 @@ public class UmetnickoDeloController {
     private final UmetnikService umetnikService;
     private final EpohaService epohaService;
     private final TuraRepository turaRepository;
-    
-    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService, EpohaRepository epohaRepository, UmetnikRepository umetnikRepository, UmetnikService umetnikService, EpohaService epohaService, TuraRepository turaRepository) {
+    private final UmetnickoDeloMapper umetnickoDeloMapper;
+
+    public UmetnickoDeloController(UmetnickoDeloService umetnickoDeloService, EpohaRepository epohaRepository, UmetnikRepository umetnikRepository, UmetnikService umetnikService, EpohaService epohaService, TuraRepository turaRepository, UmetnickoDeloMapper umetnickoDeloMapper) {
         this.umetnickoDeloService = umetnickoDeloService;
         this.epohaRepository = epohaRepository;
         this.umetnikRepository = umetnikRepository;
         this.umetnikService = umetnikService;
         this.epohaService = epohaService;
         this.turaRepository = turaRepository;
+        this.umetnickoDeloMapper = umetnickoDeloMapper;
     }
 
     @GetMapping("getPodaciZaFormuKreiranje")
@@ -182,5 +185,26 @@ public class UmetnickoDeloController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+
+    @GetMapping("/searchUmetnickodelo")
+    public List<UmetnickoDeloDTO> searchUmetnickoDelo(@RequestParam(required = false) Integer epohaId,
+                                                   @RequestParam(required = false) Integer umetnikId,
+                                                   @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date godinaNastanka) {
+        // Initialize epoha and umetnik based on their IDs if provided
+        Epoha epoha = (epohaId != null) ? epohaRepository.findById(epohaId).orElse(null) : null;
+        Umetnik umetnik = (umetnikId != null) ? umetnikRepository.findById(umetnikId).orElse(null) : null;
+
+        // Create a list containing the single epoha or null if not provided
+        List<Epoha> epohas = (epoha != null) ? List.of(epoha) : null;
+
+        // Call the service method with the parameters
+        List<Umetnickodelo> found = umetnickoDeloService.searchUmetnickoDelo(epohas, umetnik, godinaNastanka);
+        List<UmetnickoDeloDTO> dtos = new ArrayList<>();
+        for(Umetnickodelo umetnickodelo : found){
+            dtos.add(umetnickoDeloMapper.toDto(umetnickodelo));
+        }
+        return dtos;
+    }
+
 
 }

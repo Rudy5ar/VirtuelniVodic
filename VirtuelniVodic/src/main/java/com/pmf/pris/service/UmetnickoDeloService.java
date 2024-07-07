@@ -1,8 +1,10 @@
 package com.pmf.pris.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class UmetnickoDeloService {
 
     @Autowired
     EpohaRepository epohaRepository;
+    @Autowired
+    private UmetnickoDeloRepository umetnickoDeloRepository;
 
     public List<Umetnickodelo> getDelaUTuri(int idTure) {
         Tura t = tr.findById(idTure).get();
@@ -125,6 +129,17 @@ public class UmetnickoDeloService {
     public List<Umetnickodelo> findAllById(List<Integer> ids) {
         return udr.findAllById(ids);
     }
+
+    public List<Umetnickodelo> searchUmetnickoDelo(List<Epoha> epohas, Umetnik umetnik, Date godinaNastanka) {
+        List<Integer> epohaIds = null;
+
+        if (epohas != null && !epohas.isEmpty()) {
+            epohaIds = epohas.stream().map(Epoha::getIdEpoha).collect(Collectors.toList());
+        }
+
+        return umetnickoDeloRepository.searchUmetnickaDela(epohaIds, umetnik, godinaNastanka);
+    }
+
 
 
 }
