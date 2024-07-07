@@ -16,8 +16,6 @@
         <c:if test="${not empty tura}">
             <p><strong>Naziv:</strong> ${tura.naziv}</p>
             <p><strong>Opis:</strong> ${tura.opis}</p>
-            <p><strong>ID Korisnika:</strong> ${tura.korisnik.idKorisnik}</p>
-            <p><strong>Status:</strong> ${uspelo}</p>
 
             <h3>Umetnicka Dela</h3>
             <c:if test="${not empty umetnickaDela}">

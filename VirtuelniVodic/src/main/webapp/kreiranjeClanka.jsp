@@ -12,19 +12,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<header>
-		<h1>
-			<a class="header" href="http://localhost:8080/Muzej/home.jsp">Virtuelni vodic</a>
-		</h1>
-	</header>
-	<nav>
-		<a href="http://localhost:8080/Muzej/home.jsp">Pocetna</a> 
-		<a href="http://localhost:8080/Muzej/login">Ulogovanje</a> 
-		<a href="http://localhost:8080/Muzej/kreiranjeTure.jsp">Kreirajte novu turu</a> 
-		<a href="tura/prikaziJavne">Javne ture</a> 
-		<a href="tura/prikaziPrivatne">Privatne ture</a> 
-		<a href="http://localhost:8080/Muzej/urediPredmet.jsp">Uredi predmet</a>
-	</nav>
+	<jsp:include page="header.jsp" />
 	<div class="container">
 		<form action="${pageContext.request.contextPath}/clanak/kreirajClanak" method="post">
 			<table>

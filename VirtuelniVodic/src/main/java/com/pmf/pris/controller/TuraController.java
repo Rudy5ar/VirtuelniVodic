@@ -52,10 +52,12 @@ public class TuraController {
 
     @PostMapping("/kreirajTuru")
     public String createTura(@RequestParam String naziv, @RequestParam String opis,
-                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip) {
+                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip, HttpServletRequest request) {
     	// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-        ts.kreirajTuru(naziv, opis, tip, umetnickaDela);
-        return "redirect:/home.jsp";
+        Tura t = ts.kreirajTuru(naziv, opis, tip, umetnickaDela);
+        request.setAttribute("tura", t);
+        request.setAttribute("umetnickaDela", t.getUmetnickodelos());
+        return "ture/prikaziSacuvanuTuru";
     }
 
 	@GetMapping("getUmetnickaDela")
