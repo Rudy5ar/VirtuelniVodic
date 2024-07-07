@@ -1,9 +1,6 @@
 package com.pmf.pris.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +60,8 @@ public class UmetnickoDeloController {
     @GetMapping("svaDela")
     public String svaDela(HttpServletRequest request) {
         request.setAttribute("svaDela", umetnickoDeloService.getDela());
+        request.setAttribute("epohe", epohaService.getAllEpohe());
+        request.setAttribute("umetnici", umetnikService.getAllUmetnici());
         return "umetnickoDelo/prikazUmetnickihDela";
     }
 
@@ -187,9 +186,10 @@ public class UmetnickoDeloController {
     }
 
     @GetMapping("/searchUmetnickodelo")
-    public List<UmetnickoDeloDTO> searchUmetnickoDelo(@RequestParam(required = false) Integer epohaId,
-                                                   @RequestParam(required = false) Integer umetnikId,
-                                                   @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date godinaNastanka) {
+    public String searchUmetnickoDelo(HttpServletRequest request,
+                                      @RequestParam(required = false) Integer epohaId,
+                                      @RequestParam(required = false) Integer umetnikId,
+                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date godinaNastanka) {
         // Initialize epoha and umetnik based on their IDs if provided
         Epoha epoha = (epohaId != null) ? epohaRepository.findById(epohaId).orElse(null) : null;
         Umetnik umetnik = (umetnikId != null) ? umetnikRepository.findById(umetnikId).orElse(null) : null;
@@ -203,8 +203,10 @@ public class UmetnickoDeloController {
         for(Umetnickodelo umetnickodelo : found){
             dtos.add(umetnickoDeloMapper.toDto(umetnickodelo));
         }
-        return dtos;
+        request.setAttribute("svaDela", found);
+        request.setAttribute("epohe", epohaService.getAllEpohe());
+        request.setAttribute("umetnici", umetnikService.getAllUmetnici());
+        System.out.println(dtos);
+        return "umetnickoDelo/prikazUmetnickihDela";
     }
-
-
 }

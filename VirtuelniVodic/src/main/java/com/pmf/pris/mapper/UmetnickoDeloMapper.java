@@ -19,7 +19,8 @@ public class UmetnickoDeloMapper {
                 delo.getNaziv(),
                 delo.getOpis(),
                 delo.getGeografskaSirina(),
-                delo.getGeografskaDuzina()
+                delo.getGeografskaDuzina(),
+                delo.getDatum()
         );
     }
 
@@ -43,6 +44,7 @@ public class UmetnickoDeloMapper {
         delo.setOpis(dto.getOpis());
         delo.setGeografskaSirina(dto.getLatitude());
         delo.setGeografskaDuzina(dto.getLongitude());
+        delo.setDatum(dto.getDatum());
         return delo;
     }
 
