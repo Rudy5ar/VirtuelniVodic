@@ -13,10 +13,14 @@ import model.Epoha;
 public class EpohaService {
 	
 	@Autowired
-	private EpohaRepository er;
-	
-	public List<Epoha> sveEpohe() {
-		return er.findAll();
-	}
+    private EpohaRepository epohaRepository;
+
+    public List<Epoha> getAllEpohe() {
+        return epohaRepository.findAll();
+    }
+
+    public Epoha findById(int id) {
+        return epohaRepository.findById(id).orElse(null);
+    }
 
 }
