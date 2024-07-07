@@ -89,10 +89,13 @@ select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: none;
     overflow: hidden;
     height: 40px;
     overflow-y: auto;
+}
+
+.veciSelect {
+    height: 120px;
 }
 
 select:focus {

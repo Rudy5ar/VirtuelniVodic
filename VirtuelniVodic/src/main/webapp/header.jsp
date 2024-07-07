@@ -8,12 +8,14 @@
         <a href="http://localhost:8080/Muzej/login">Ulogovanje</a>
         <a href="http://localhost:8080/Muzej/register">Registracija</a>
     </sec:authorize>
-    <a href="${pageContext.request.contextPath}/tura/getUmetnickaDela">Kreirajte novu turu</a>
+    <sec:authorize access="isAuthenticated()"><a href="${pageContext.request.contextPath}/tura/getUmetnickaDela">Kreirajte novu turu</a></sec:authorize>
     <a href="${pageContext.request.contextPath}/tura/prikaziJavne">Javne ture</a>
-    <a href="${pageContext.request.contextPath}/tura/prikaziPrivatne">Privatne ture</a>
+    <sec:authorize access="isAuthenticated()">
+        <a href="${pageContext.request.contextPath}/tura/prikaziPrivatne">Privatne ture</a>
+    </sec:authorize>
     <a href="http://localhost:8080/Muzej/umetnickoDelo/svaDela">Umetnicki predmeti</a>
-    <a href="${pageContext.request.contextPath}/umetnickoDelo/getPodaciZaFormuKreiranje">Kreiraj umetnicki predmet</a>
-    <sec:authorize access="hasAuthority('ADMIN')"><a href="admin">Admin strana</a></sec:authorize>
+    <sec:authorize access="hasAnyRole('ADMIN', 'UREDJIVAC')"><a href="${pageContext.request.contextPath}/umetnickoDelo/getPodaciZaFormuKreiranje">Kreiraj umetnicki predmet</a></sec:authorize>
+    <sec:authorize access="hasAuthority('ADMIN')"><a href="${pageContext.request.contextPath}/admin">Admin strana</a></sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <a href="http://localhost:8080/Muzej/logout">Odjava</a>
     </sec:authorize>

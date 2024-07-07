@@ -1,12 +1,18 @@
 package com.pmf.pris.controller;
 
-import java.util.List;
+import java.io.OutputStream;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.pmf.pris.repository.UmetnickoDeloRepository;
-import com.pmf.pris.service.RouteService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import model.Umetnickodelo;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +26,7 @@ import com.pmf.pris.service.TuraService;
 import com.pmf.pris.service.UmetnickoDeloService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 import model.Tura;
-import model.Umetnickodelo;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping("tura")
@@ -56,9 +52,9 @@ public class TuraController {
 
     @PostMapping("/kreirajTuru")
     public String createTura(@RequestParam String naziv, @RequestParam String opis,
-                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip, Model model) {
+                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip) {
     	// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-        ts.kreirajTuru(naziv, opis, tip, 1, umetnickaDela);
+        ts.kreirajTuru(naziv, opis, tip, umetnickaDela);
         return "redirect:/home.jsp";
     }
 
@@ -118,6 +114,10 @@ public class TuraController {
 	@GetMapping("prikaziPrivatne")
 	public String prikaziPrivatne(HttpServletRequest request) {
 		List<Tura> privatne = ts.getPrivatne();
+		if(privatne == null){
+			request.setAttribute("listaPrivatnih", new ArrayList<>());
+			return "privatneTure";
+		}
 		request.setAttribute("listaPrivatnih", privatne);
 		
 		return "privatneTure";
@@ -133,9 +133,7 @@ public class TuraController {
 	
 	@GetMapping("prikaziDetaljeTure")
 	public String prikaziDetaljeTure(HttpServletRequest request, @RequestParam("idTure") int idTure) {
-		// Kada bude bio security, dodati informaciju o korisniku
-		// int idKorisnika = (int) request.getSession().getAttribute("idKorisnika");
-		
+
 		int idKorisnika = 1;
 		Tura detalji = ts.prikaziDetaljeTure(idTure, idKorisnika);
 		request.setAttribute("detalji", detalji);
@@ -155,10 +153,29 @@ public class TuraController {
 
         Tura tura = ts.sortirajPoRazdaljini(idTure);
         request.setAttribute("sortiranaPoRazdaljini", tura);
-        for (Umetnickodelo u : tura.getUmetnickodelos()) {
-            System.out.println(u);
-        }
         return "ture/sortirajPoRazdaljini";
     }
+
+	@SneakyThrows
+	@GetMapping("/pdf")
+	public void getTuraPdf(HttpServletRequest request, HttpServletResponse response, @RequestParam Integer idTura) {
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("reports/reportTure.jrxml").getInputStream());
+
+		Tura tura = ts.getById(idTura);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("nazivTure", tura.getNaziv());
+		param.put("datum", new Date());
+
+		JRDataSource dataSource = new JRBeanCollectionDataSource(tura.getUmetnickodelos());
+
+		JasperPrint print = JasperFillManager.fillReport(report, param, dataSource);
+
+		response.setContentType("application/pdf");
+		response.setHeader("Content-Disposition", "attachment; filename=tura.pdf");
+
+		OutputStream out = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(print, out);
+	}
 
 }

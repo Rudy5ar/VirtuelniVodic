@@ -86,11 +86,15 @@ public class KorisnikService implements UserDetailsService{
 	}
 
 	public Korisnik getCurrentUser() {
-		UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) 
-				SecurityContextHolder.getContext().getAuthentication();
-				
-		
-		return korisnikRepository.findKorisnikByEmail(authentication.getName()).get();
+		try {
+			UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
+					SecurityContextHolder.getContext().getAuthentication();
+			return korisnikRepository.findKorisnikByEmail(authentication.getName()).orElseThrow(() -> new RuntimeException("Nema korisnika"));
+		} catch (Exception e) {
+			return null;
+		}
+
+
 	}
 
 	public List<Korisnik> getAllUser() {

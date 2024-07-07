@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
+import model.Korisnik;
 import model.Umetnickodelo;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,7 @@ import com.pmf.pris.repository.KorisnikRepository;
 import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import model.Tura;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import model.Umetnickodelo;
 
 @Service
 public class TuraService {
@@ -29,20 +24,20 @@ public class TuraService {
 	private final TuraRepository tr;
 	private final KorisnikRepository kr;
 	private final RouteService routeService;
-	private final UmetnickoDeloService umetnickoDeloService;
 	private final UmetnickoDeloRepository udr;
+	private final KorisnikService korisnikService;
 
-	public TuraService(TuraRepository tr, KorisnikRepository kr, RouteService routeService, UmetnickoDeloService umetnickoDeloService, UmetnickoDeloRepository udr) {
+	public TuraService(TuraRepository tr, KorisnikRepository kr, RouteService routeService, UmetnickoDeloRepository udr, KorisnikService korisnikService) {
         this.tr = tr;
         this.kr = kr;
         this.routeService = routeService;
-        this.umetnickoDeloService = umetnickoDeloService;
         this.udr = udr;
-    }
+		this.korisnikService = korisnikService;
+	}
 
-    public Tura kreirajTuru(String naziv, String opis, String tip, int i, List<Integer> umetnickaDelaIds) {
+    public Tura kreirajTuru(String naziv, String opis, String tip, List<Integer> umetnickaDelaIds) {
         Tura novaTura = new Tura();
-        novaTura.setKorisnik(kr.findById(i).orElseThrow(() -> new EntityNotFoundException("Korisnik " + i + " ne postoji")));
+        novaTura.setKorisnik(korisnikService.getCurrentUser());
         novaTura.setNaziv(naziv);
         novaTura.setOpis(opis);
         novaTura.setTip(tip);
@@ -92,7 +87,11 @@ public class TuraService {
 	}
 
 	public List<Tura> getPrivatne() {
-        return tr.findByTip("privatna");
+		Korisnik k = korisnikService.getCurrentUser();
+		if(k == null){
+			return null;
+		}
+        return tr.findByTipAndKorisnik("privatna", k);
 	}
 	
 	public List<Tura> getJavne() {
@@ -123,7 +122,7 @@ public class TuraService {
 
 		Map<Umetnickodelo, Double> deloDistances = new HashMap<>();
 		for (Umetnickodelo delo : delos) {
-			double totalDistance = calculateTotalDistance(delo, delos);
+			double totalDistance = routeService.calculateTotalDistance(delo, delos);
 			deloDistances.put(delo, totalDistance);
 		}
 
@@ -133,16 +132,6 @@ public class TuraService {
 
 		tura.setUmetnickodelos(sortedDelos);
 		return tura;
-	}
-
-	private double calculateTotalDistance(Umetnickodelo currentDelo, List<Umetnickodelo> allDelos) {
-		String currentLat = String.valueOf(currentDelo.getGeografskaSirina());
-		String currentLong = String.valueOf(currentDelo.getGeografskaDuzina());
-
-		return allDelos.stream()
-				.filter(delo -> !delo.equals(currentDelo))
-				.mapToDouble(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
-				.sum();
 	}
 
 	public Tura findById(int id) {

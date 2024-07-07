@@ -1,16 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 <title>Kreiranje umetnickog predmeta</title>
 <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/favicon.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
+	<div class="container">
 	<h2>Dodaj novi umetnicki predmet</h2>
 	<form action="kreirajUmetnickoDelo" method="post">
 		<table>
@@ -47,7 +48,7 @@
 			<tr>
 				<td>Epoha</td>
 				<td>
-					<select id="epohe" name="epohe" multiple>
+					<select class="veciSelect" id="epohe" name="epohe" multiple>
         				<c:forEach items="${sveEpohe}" var="epoha">
             				<option value="${epoha.idEpoha}">${epoha.naziv}</option>
         				</c:forEach>
@@ -69,5 +70,6 @@
 		</table>
 		<input type="submit" value="Sacuvaj"/>
 	</form>
+	</div>
 </body>
 </html>
