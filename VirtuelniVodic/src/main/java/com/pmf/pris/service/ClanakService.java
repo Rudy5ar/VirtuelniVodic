@@ -14,16 +14,16 @@ import model.Clanak;
 public class ClanakService {
 	
 	private final ClanakRepository cr;
-	private final KorisnikRepository kr;
+	private final KorisnikService ks;
 	
-	public ClanakService(ClanakRepository cr, KorisnikRepository kr) {
+	public ClanakService(ClanakRepository cr, KorisnikService ks) {
 		this.cr = cr;
-		this.kr = kr;
+		this.ks = ks;
 	}
 	
 	public Clanak kreirajClanak(String naziv, String tekst, int id) {
 		Clanak noviClanak = new Clanak();
-		noviClanak.setKorisnik(kr.findById(id).orElseThrow(() -> new EntityNotFoundException("Korisnik " + id + " ne postoji")));
+		noviClanak.setKorisnik(ks.getCurrentUser());
 		noviClanak.setNaziv(naziv);
 		noviClanak.setTekst(tekst);
 		noviClanak.setDatumKreiranja(new Date());
