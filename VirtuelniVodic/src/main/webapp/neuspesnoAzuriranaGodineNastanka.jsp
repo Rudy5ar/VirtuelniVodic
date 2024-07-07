@@ -10,6 +10,6 @@
 	<h1>Doslo je do greske prilikom azuriranja godine nastanka umetnickog dela!</h1>
     <p>Molimo vas da pokusate ponovo.</p>
     <p><a href="svaDela">Nazad na pregled umetnickih dela</a></p>
-
+    <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

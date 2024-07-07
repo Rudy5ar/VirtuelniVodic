@@ -31,6 +31,7 @@
       <sec:authorize access="isAuthenticated()">
       	<h1>Već ste ulogovani!</h1>
       </sec:authorize>
+      <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>
   </body>
 </html>

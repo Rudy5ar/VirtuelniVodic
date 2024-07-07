@@ -10,5 +10,6 @@
 <body>
 	<h1>${poruka}</h1>
     <a href="/umetnickoDelo/svaDela">Nazad na listu dela</a>
+    <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

@@ -17,5 +17,6 @@
         <p><strong>Opstost1:</strong> ${umetnickoDelo.opstost1}</p>
         <p><strong>Opstost2:</strong> ${umetnickoDelo.opstost2}</p>
         <p><strong>Opstost3:</strong> ${umetnickoDelo.opstost3}</p>
+    <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

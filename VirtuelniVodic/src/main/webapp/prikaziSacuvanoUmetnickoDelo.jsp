@@ -27,6 +27,7 @@
 	<p><strong>Kratak opis:</strong>${umetnickoDelo.opstost1 }</p>
 	<p><strong>Detaljniji opis:</strong>${umetnickoDelo.opstost2 }</p>
 	<p><strong>Veoma detaljan opis:</strong>${umetnickoDelo.opstost3 }</p>
+	<a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </div>
 
 

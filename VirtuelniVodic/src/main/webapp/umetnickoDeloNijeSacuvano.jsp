@@ -11,5 +11,6 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <h2>Umetnicki predmet nije dobro sacuvan</h2>
+<a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

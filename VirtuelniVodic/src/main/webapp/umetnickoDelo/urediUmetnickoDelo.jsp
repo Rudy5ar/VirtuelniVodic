@@ -58,5 +58,6 @@
     </table>
     <input type="submit" value="Sacuvaj"/>
 </form>
+<a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

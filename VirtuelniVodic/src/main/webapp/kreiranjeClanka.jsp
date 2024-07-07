@@ -34,6 +34,7 @@
         <c:if test="${not empty requestScope.uspeo}">
             <p>${requestScope.uspeo}</p>
         </c:if>
+		<a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 	</div>
 </body>
 </html>

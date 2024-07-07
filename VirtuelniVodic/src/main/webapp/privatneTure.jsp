@@ -36,7 +36,7 @@
             </table>
         </c:if>
             <c:if test="${empty listaPrivatnih}">
-                <h3>Nema privatnih tura</h3>
+                <p>Nema privatnih tura</p>
             </c:if>
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>
