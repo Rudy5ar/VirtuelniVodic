@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/VirtuelniVodic.iml" filepath="$PROJECT_DIR$/.idea/VirtuelniVodic.iml" />
       <module fileurl="file://$PROJECT_DIR$/VirtuelniVodicJPA/VirtuelniVodicJPA.iml" filepath="$PROJECT_DIR$/VirtuelniVodicJPA/VirtuelniVodicJPA.iml" />
     </modules>
   </component>

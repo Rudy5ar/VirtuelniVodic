@@ -49,12 +49,7 @@ public class Tura implements Serializable {
 	private Korisnik korisnik;
 
 	//bi-directional many-to-many association to Umetnickodelo
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "delature",
-        joinColumns = @JoinColumn(name = "idTure"),
-        inverseJoinColumns = @JoinColumn(name = "idUmetnickoDelo")
-    )
+	@ManyToMany(mappedBy="turas")
 	private List<Umetnickodelo> umetnickodelos = new ArrayList<>();
 
 	public List<Umetnickodelo> getUmetnickodelos() {
