@@ -31,7 +31,7 @@ import model.Tura;
 import model.Umetnickodelo;
 import model.Umetnik;
 
-@RestController
+@Controller
 @RequestMapping("umetnickoDelo")
 public class UmetnickoDeloController {
 
