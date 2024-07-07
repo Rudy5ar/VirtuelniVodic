@@ -21,10 +21,4 @@ public interface UmetnickoDeloRepository extends JpaRepository<Umetnickodelo, In
     List<Umetnickodelo> searchUmetnickaDela(@Param("epohas") List<Integer> epohas,
                                             @Param("umetnik") Umetnik umetnik,
                                             @Param("godinaNastanka") Date godinaNastanka);
-
-    @Query("SELECT u FROM Umetnickodelo u  " +
-            "WHERE (:umetnik IS NULL OR u.umetnik = :umetnik) " +
-            "AND (:godinaNastanka IS NULL OR u.datum = :godinaNastanka)")
-    List<Umetnickodelo> findAllByUmetnik(@Param("umetnik") Umetnik umetnik,
-                                         @Param("godinaNastanka") Date godinaNastanka);
 }

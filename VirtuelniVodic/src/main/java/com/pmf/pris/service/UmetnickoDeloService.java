@@ -139,7 +139,4 @@ public class UmetnickoDeloService {
 
         return umetnickoDeloRepository.searchUmetnickaDela(epohaIds, umetnik, godinaNastanka);
     }
-
-
-
 }
