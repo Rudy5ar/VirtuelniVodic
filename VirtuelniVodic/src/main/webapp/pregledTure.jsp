@@ -44,7 +44,7 @@
         
         <br>
         <c:if test="${tip == 'privatna'}">
-        	<a href="${pageContext.request.contextPath}/ture/urediTuru.jsp">Uredi turu</a>
+        	<a href="${pageContext.request.contextPath}/tura/proslediTuru/${tura.idTura}">Uredi turu</a>
         </c:if>
 
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>

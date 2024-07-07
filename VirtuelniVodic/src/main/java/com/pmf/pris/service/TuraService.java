@@ -77,6 +77,8 @@ public class TuraService {
 //		return novaTura;
 //	}
 	
+    
+    
 	public boolean promeniTuru(int idTure, String naziv, String opis) {
 		Optional<Tura> optionalEntity = tr.findById(idTure);
         if (optionalEntity.isPresent()) {
@@ -158,6 +160,10 @@ public class TuraService {
 				.filter(delo -> !delo.equals(currentDelo))
 				.mapToInt(delo -> routeService.getDistance(currentLat, currentLong, String.valueOf(delo.getGeografskaSirina()), String.valueOf(delo.getGeografskaDuzina())))
 				.sum();
+	}
+	
+	public Tura findById(int id) {
+		return tr.findById(id).get();
 	}
 
 

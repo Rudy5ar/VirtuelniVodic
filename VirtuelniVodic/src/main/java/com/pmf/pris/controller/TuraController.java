@@ -1,16 +1,19 @@
 package com.pmf.pris.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pmf.pris.maps.OpenRouteService;
+import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.service.TuraService;
 import com.pmf.pris.service.UmetnickoDeloService;
 
@@ -30,6 +33,9 @@ public class TuraController {
 	
 	@Autowired
 	UmetnickoDeloService  umetnickoDeloService;
+	
+	@Autowired
+	TuraRepository tr;
 	
 	@GetMapping("/kreirajTuru")
     public String showCreateTuraForm(Model model) {
@@ -81,16 +87,41 @@ public class TuraController {
     	return "kreiranjeTure";
     }
 	
-	@PostMapping("promeniTuru")
-	public String promeniTuru(HttpServletRequest request, @RequestParam("idTure") int idTure, @RequestParam("naziv") String naziv, @RequestParam("opis") String opis) {
-		if(!ts.promeniTuru(idTure, naziv, opis)) {
-			request.setAttribute("uspelo", "Nije promenjena tura");
-			return "ture/turaNijePromenjena";
-		}
-		request.setAttribute("uspelo", "Kreirana tura");
-		return "ture/prikaziPromenjenuTuru";
-		
+	@GetMapping("proslediTuru/{idTura}")
+	public String urediTuru(@PathVariable("idTura") Integer idTura, Model model) {
+		Tura tura = ts.findById(idTura);
+	    if (tura != null) {
+	        model.addAttribute("tura", tura);
+	        model.addAttribute("umetnickaDela", umetnickoDeloService.getDela()); // Assuming this fetches the correct list
+	        return "ture/urediTuru"; // Return your JSP name without .jsp extension
+	    } else {
+	        // Handle case where tura with given idTura is not found
+	        return "error"; // Create a dedicated error page or handle as per your application flow
+	    }
 	}
+	
+	@PostMapping("promeniTuru/{idTura}")
+	public String promeniTuru(HttpServletRequest request, 
+							  @PathVariable("idTura") int idTure, 
+							  @RequestParam("naziv") String naziv, 
+							  @RequestParam("opis") String opis,
+							  @RequestParam("umetnickaDela") List<Integer> delaIds, 
+							  @RequestParam("tip") String tip) {
+		Tura tura = ts.findById(idTure);
+		tura.setNaziv(naziv);
+		tura.setOpis(opis);
+		tura.setTip(tip);
+		
+		List<Umetnickodelo> dela = delaIds.stream()
+										  .map(deloId -> umetnickoDeloService.findById(deloId))
+										  .collect(Collectors.toList());
+		tura.setUmetnickodelos(dela);
+		tr.save(tura);
+		request.setAttribute("tura", tura);
+		request.setAttribute("umetnickaDela", dela);
+		return "ture/prikaziPromenjenuTuru";
+	}
+	
 	//nesto sam mijenjala
 	@PostMapping("objaviTuru")
 	public String objaviTuru(HttpServletRequest request, @RequestParam("idTure") int idTure) {
