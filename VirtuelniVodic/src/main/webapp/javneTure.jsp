@@ -19,9 +19,9 @@
         <tr>
             <th>Naziv ture</th>
             <th>Opis ture</th>
-            <th></th>
+            <th>Izvestaj</th>
             <sec:authorize access="isAuthenticated()">
-                <th></th>
+                <th>Kopiranje ture</th>
             </sec:authorize>
         </tr>
         </thead>
@@ -34,7 +34,7 @@
                 <td>${tura.opis}</td>
                 <td><a href="http://localhost:8080/Muzej/tura/pdf?idTura=${tura.idTura }">Izveštaj o turi</a></td>
                 <sec:authorize access="isAuthenticated()">
-                <td><a href="http://localhost:8080/Muzej/tura/kopiranje?idTura=${tura.idTura}">Prilagođi kao privatnu turu</a></td>
+                <td><a href="http://localhost:8080/Muzej/tura/kopiranje?idTura=${tura.idTura}">Prilagodi kao privatnu turu</a></td>
                 </sec:authorize>
             </tr>
         </c:forEach>

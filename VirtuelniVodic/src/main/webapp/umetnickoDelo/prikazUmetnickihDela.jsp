@@ -19,7 +19,7 @@
             <c:forEach items="${epohe}" var="epoha">
                 <option value="${epoha.idEpoha}">${epoha.naziv}</option>
             </c:forEach>
-        </select>
+        </select><br><br>
         <select id="umetnikId" name="umetnikId">
             <option value="" disabled selected>Izaberite umetnika</option>
             <c:forEach items="${umetnici}" var="u">
@@ -27,7 +27,7 @@
             </c:forEach>
         </select>
         <input type="date" name="godinaNastanka">
-        <input type="submit" value="Pretrazi po filterima">
+        <input class="btn-route" type="submit" value="Pretrazi po filterima">
     </form>
     <table>
         <tr>

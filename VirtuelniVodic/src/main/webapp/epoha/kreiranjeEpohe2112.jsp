@@ -32,7 +32,7 @@
 				<td><input type="date" name="vremenskiPeriodDo"></td>
 			</tr>
 		</table>
-		<input class="btn-route" type="submit" value="Sacuvaj">
+		<input type="submit" value="Sacuvaj">
 	</form>
 </div>
 </body>

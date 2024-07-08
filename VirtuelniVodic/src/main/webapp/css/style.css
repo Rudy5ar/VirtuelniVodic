@@ -166,3 +166,22 @@ a:hover {
     color: #2980b9; /* Darker blue on hover */
     text-decoration: underline; /* Underline on hover */
 }
+
+.btn-route {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-route:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}

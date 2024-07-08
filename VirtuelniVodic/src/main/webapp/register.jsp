@@ -23,7 +23,7 @@
         <sf:input path="email" placeholder="Email*" />
         <sf:password path="sifra" placeholder="Lozinka*" />
         <sf:password path="sifraProvera" placeholder="Provera lozinka*" />
-        <input class="blue-btn" type="submit" value="Registracija" />
+        <input class="btn-route" type="submit" value="Registracija" />
       </sf:form>
       <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>

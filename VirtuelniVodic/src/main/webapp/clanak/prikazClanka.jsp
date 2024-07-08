@@ -29,7 +29,7 @@
             </tr>
         </tbody>
     </table>
-    <a class="back-link" href="http://localhost:8080/Muzej/clanak/prikaziClanke">Back to Prikaz clanaka</a>
+    <a class="btn-route" href="http://localhost:8080/Muzej/clanak/prikaziClanke">Back to Prikaz clanaka</a>
     <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </div>
 </body>

@@ -25,7 +25,7 @@
 					<td><input type="text" name="tekst"></td>
 				</tr>
 			</table>
-			<input type="submit" value="Sacuvaj">
+			<input class="btn-route" type="submit" value="Sacuvaj">
 		</form>
 		
 		<c:if test="${not empty requestScope.uspeo}">

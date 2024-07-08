@@ -22,11 +22,11 @@
         <h2>Ulogovanje</h2>
         <sf:input path="email" placeholder="Email" />
         <sf:password path="sifra" placeholder="Lozinka" />
-        <input class="blue-btn" type="submit" value="Prijava" />
+        <input class="btn-route" type="submit" value="Prijava" />
       </sf:form>
 
         <h1>Nemate nalog?</h1>
-        <a href="register" class="blue-btn">Registracija</a>
+        <a href="register" class="btn-route">Registracija</a>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
       	<h1>Već ste ulogovani!</h1>

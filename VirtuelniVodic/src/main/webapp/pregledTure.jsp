@@ -44,11 +44,11 @@
         
         <br>
         <c:if test="${tip == 'privatna'}">
-        	<a href="${pageContext.request.contextPath}/tura/proslediTuru/${tura.idTura}">Uredi turu</a>
+        <a href="${pageContext.request.contextPath}/tura/proslediTuru/${tura.idTura}" class="btn-route">Uredi turu</a>
         </c:if>
 
-        <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
-        <a href="/Muzej/route?turaId=${tura.idTura}">Nadji rutu</a>
+        <a class="btn-route" href="${pageContext.request.contextPath}/home.jsp">Back to Home</a>
+        <a href="/Muzej/route?turaId=${tura.idTura}" class="btn-route">Nadji rutu</a>
     </div>
 </body>
 </html>
