@@ -7,29 +7,27 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import jakarta.persistence.EntityNotFoundException;
-import model.Korisnik;
-import model.Umetnickodelo;
 import org.springframework.stereotype.Service;
 
-import com.pmf.pris.repository.KorisnikRepository;
+import com.pmf.pris.model.dto.TuraDTO;
 import com.pmf.pris.repository.TuraRepository;
 import com.pmf.pris.repository.UmetnickoDeloRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+import model.Korisnik;
 import model.Tura;
+import model.Umetnickodelo;
 
 @Service
 public class TuraService {
 
 	private final TuraRepository tr;
-	private final KorisnikRepository kr;
 	private final RouteService routeService;
 	private final UmetnickoDeloRepository udr;
 	private final KorisnikService korisnikService;
 
-	public TuraService(TuraRepository tr, KorisnikRepository kr, RouteService routeService, UmetnickoDeloRepository udr, KorisnikService korisnikService) {
+	public TuraService(TuraRepository tr, RouteService routeService, UmetnickoDeloRepository udr, KorisnikService korisnikService) {
         this.tr = tr;
-        this.kr = kr;
         this.routeService = routeService;
         this.udr = udr;
 		this.korisnikService = korisnikService;
@@ -136,6 +134,20 @@ public class TuraService {
 
 	public Tura findById(int id) {
 		return tr.findById(id).get();
+	}
+	
+	public Tura save(TuraDTO turaDTO) {
+		Tura tura = new Tura();
+		tura.setKorisnik(korisnikService.getCurrentUser());
+		tura.setNaziv(turaDTO.getNaziv());
+		tura.setOpis(turaDTO.getOpis());
+		tura.setTip(turaDTO.getTip());
+		
+		for(Umetnickodelo delo : turaDTO.getUmetnickodelos()) {
+			tura.addUmetnickodelo(delo);			
+		}
+		
+		return tr.save(tura);
 	}
 
 }
