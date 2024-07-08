@@ -106,8 +106,8 @@ public class TuraController {
 										  .map(deloId -> umetnickoDeloService.findById(deloId))
 										  .collect(Collectors.toList());
 		tura.setUmetnickodelos(dela);
-		tr.save(tura);
-		request.setAttribute("tura", tura);
+		Tura sacuvanaTura = tr.save(tura);
+		request.setAttribute("tura", sacuvanaTura);
 		request.setAttribute("umetnickaDela", dela);
 		return "ture/prikaziPromenjenuTuru";
 	}

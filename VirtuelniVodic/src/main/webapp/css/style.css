@@ -23,8 +23,9 @@ nav span {
     display: block;
     color: #fff;
     text-align: center;
-    padding: 14px 20px;
+    padding: 10px 15px; /* Adjusted padding for smaller height */
     text-decoration: none;
+    font-size: 14px; /* Adjusted font size */
 }
 
 nav span {
@@ -155,4 +156,13 @@ button:hover {
     transition: opacity 0.3s;
     opacity: 1;
     z-index: 1;
+}
+
+a {
+    color: #3498db; /* Blue color */
+    text-decoration: none; /* Remove underline */
+}
+a:hover {
+    color: #2980b9; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover */
 }

@@ -16,16 +16,16 @@
     <table>
         <thead>
         <tr>
-            <th>${clanak.naziv}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                ${clanak.datumKreiranja}</th>
+            <th>${clanak.naziv}</th>
+            <th>${clanak.datumKreiranja}</th>
+            <th>${clanak.korisnik.korisnickoIme}</th>
         </tr>
         </thead>
         <tbody>
             <tr>
-                <td>
+                <td colspan="3">
                     ${clanak.tekst}
                 </td>
-
             </tr>
         </tbody>
     </table>
