@@ -48,7 +48,7 @@
         </c:if>
 
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
-        <a href="/Muzej/route?turaId=8">Nadji rutu</a>
+        <a href="/Muzej/route?turaId=${tura.idTura}">Nadji rutu</a>
     </div>
 </body>
 </html>
