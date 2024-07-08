@@ -28,7 +28,7 @@
                             <tr>
                                 <td><a href="http://localhost:8080/Muzej/umetnickoDelo/delaUTuri?idTure=${tura.idTura }">${tura.naziv}</a></td>
                                 <td>${tura.opis}</td>
-                                <td><a class="btn-route" href="http://localhost:8080/Muzej/tura/pdf?idTura=${tura.idTura }" >Izveštaj o turi</a></td>
+                                <td><a href="http://localhost:8080/Muzej/tura/pdf?idTura=${tura.idTura }" >Izveštaj o turi</a></td>
                             </tr>
                         </c:forEach>
 

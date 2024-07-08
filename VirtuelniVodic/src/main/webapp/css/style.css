@@ -159,21 +159,22 @@ button:hover {
 }
 
 a {
-    color: #3498db; /* Blue color */
+    color: #d47321; /* Gray color */
     text-decoration: none; /* Remove underline */
 }
+
 a:hover {
-    color: #2980b9; /* Darker blue on hover */
+    color: #d47321; /* Lighter gray on hover */
     text-decoration: underline; /* Underline on hover */
 }
 
 .btn-route {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px; /* Reduced padding */
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 14px; /* Reduced font size */
     color: #fff;
-    background-color: #007bff;
+    background-color: #d9534f; /* Reddish background color */
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -182,6 +183,38 @@ a:hover {
 }
 
 .btn-route:hover {
-    background-color: #0056b3;
+    background-color: #c9302c; /* Darker reddish shade for hover effect */
     transform: scale(1.05);
+}
+
+input[type="date"] {
+    display: inline-block;
+    width: 200px; /* Adjust width as needed */
+    padding: 8px; /* Reduced padding */
+    font-size: 14px; /* Reduced font size */
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px; /* Smaller border radius */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="date"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Custom calendar icon for browsers */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+    cursor: pointer;
+    width: 16px; /* Adjust icon size */
+    height: 16px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
 }
