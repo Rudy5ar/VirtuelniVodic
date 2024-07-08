@@ -3,6 +3,7 @@ package com.pmf.pris.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,5 +29,17 @@ public class ClanakController {
         }
         model.addAttribute("clanak", createdClanak);
         return "clanak/prikaziSacuvanClanak";
+    }
+
+    @GetMapping("prikaziClanke")
+    public String prikaziClanke(HttpServletRequest request) {
+        request.setAttribute("sviClanci", clanakService.sviClanci());
+        return "clanak/prikaziClanke";
+    }
+
+    @GetMapping("detaljiClanka")
+    public String detaljiClanka(HttpServletRequest request, @RequestParam("idClanka") int idClanka) {
+        request.setAttribute("clanak", clanakService.detaljiClanka(idClanka));
+        return "clanak/prikazClanka";
     }
 }

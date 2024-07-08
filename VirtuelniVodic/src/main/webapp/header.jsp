@@ -24,6 +24,7 @@
  	<sec:authorize access="hasAuthority('ADMIN') or hasAuthority('UREDJIVAC')">
     	<a href="${pageContext.request.contextPath}/kreiranjeClanka.jsp">Kreiraj clanak</a>
  	</sec:authorize>
+    <a href="${pageContext.request.contextPath}/clanak/prikaziClanke">Pregledaj clanke</a>
     <sec:authorize access="hasAuthority('ADMIN')"><a href="${pageContext.request.contextPath}/admin">Admin strana</a></sec:authorize>
     <sec:authorize access="isAuthenticated()">
         <a href="http://localhost:8080/Muzej/logout">Odjava</a>

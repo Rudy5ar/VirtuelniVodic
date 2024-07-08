@@ -29,6 +29,10 @@ public class RouteController {
     public String getRoute(Model model, @RequestParam int turaId) {
         Tura tura = turaService.getById(turaId);
         List<Umetnickodelo> dela = tura.getUmetnickodelos();
+        if(dela.size() < 2){
+            model.addAttribute("error", "Tura ima manje od dva umetnicka dela");
+            return "error";
+        }
         List<String> places = new ArrayList<>();
 
         for(Umetnickodelo u : dela){
