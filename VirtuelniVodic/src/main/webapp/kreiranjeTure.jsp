@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,38 +16,36 @@
     <div class="container">
         <h2>Kreiranje ture</h2>
        
-        <form action="kreirajTuru" method="post">
+        <sf:form modelAttribute="tura" action="kreirajTuru" method="post">
             <table>
                 <tr>
                     <td>Naziv</td>
-                    <td><input type="text" name="naziv" value=""></td>
+                    <td><sf:input type="text" path="naziv"/></td>
                 </tr>
                 <tr>
                     <td>Opis</td>
-                    <td><input type="text" name="opis" value=""></td>
+                    <td><sf:input type="text" path="opis"/></td>
                 </tr>
                 <tr>
                     <td>Umetnicki predmeti</td>
                     <td>
-                        <select class="veciSelect" id="umetnickaDela" name="umetnickaDela" multiple>
-                            <c:forEach items="${umetnickaDela}" var="delo">
-                                <option value="${delo.idUmetnickoDelo}">${delo.naziv}</option>
-                            </c:forEach>
-                        </select>
+                        <sf:select class="veciSelect" path="umetnickodelos" multiple="true">
+                            <sf:options items="${umetnickaDela}" itemValue="idUmetnickoDelo" itemLabel="naziv"/>
+                        </sf:select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tip</td>
                     <td>
-                        <input type="radio" id="privatna" name="tip" value="privatna">
+                        <sf:radiobutton id="privatna" path="tip" value="privatna"/>
                         <label for="privatna">Privatna</label><br>
-                        <input type="radio" id="javna" name="tip" value="javna">
+                        <sf:radiobutton id="javna" path="tip" value="javna"/>
                         <label for="javna">Javna</label><br>
                     </td>
                 </tr>
             </table>
-            <input type="submit" value="Sacuvaj">
-        </form>
+            <input type="submit" value="Sacuvaj"/>
+        </sf:form>
        
         <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>

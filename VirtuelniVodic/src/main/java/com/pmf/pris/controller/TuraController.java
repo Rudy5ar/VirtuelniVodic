@@ -1,32 +1,42 @@
 package com.pmf.pris.controller;
 
 import java.io.OutputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.pmf.pris.repository.UmetnickoDeloRepository;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
-import model.Umetnickodelo;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pmf.pris.model.dto.TuraDTO;
 import com.pmf.pris.repository.TuraRepository;
+import com.pmf.pris.repository.UmetnickoDeloRepository;
 import com.pmf.pris.service.TuraService;
 import com.pmf.pris.service.UmetnickoDeloService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 import model.Tura;
+import model.Umetnickodelo;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Controller
 @RequestMapping("tura")
@@ -47,14 +57,14 @@ public class TuraController {
 	@GetMapping("/kreirajTuru")
     public String showCreateTuraForm(Model model) {
         model.addAttribute("umetnickaDela", umetnickoDeloService.getDela());
+        model.addAttribute("tura", new TuraDTO());
         return "kreirajTuru";
     }
 
     @PostMapping("/kreirajTuru")
-    public String createTura(@RequestParam String naziv, @RequestParam String opis,
-                             @RequestParam List<Integer> umetnickaDela, @RequestParam String tip, HttpServletRequest request) {
+    public String createTura(@ModelAttribute TuraDTO tura, HttpServletRequest request) {
     	// Promeniti 1 u request.getAttribute(idKorisnika) kada security bude implementiran
-        Tura t = ts.kreirajTuru(naziv, opis, tip, umetnickaDela);
+        Tura t = ts.save(tura);
         request.setAttribute("tura", t);
         request.setAttribute("umetnickaDela", t.getUmetnickodelos());
         return "ture/prikaziSacuvanuTuru";
@@ -63,6 +73,7 @@ public class TuraController {
 	@GetMapping("getUmetnickaDela")
     public String getUmetnickaDela(HttpServletRequest request) {
     	request.setAttribute("umetnickaDela", umetnickoDeloService.getDela());
+    	request.setAttribute("tura", new TuraDTO());
     	return "kreiranjeTure";
     }
 	
@@ -180,4 +191,17 @@ public class TuraController {
 		JasperExportManager.exportReportToPdfStream(print, out);
 	}
 
+	@GetMapping("/kopiranje")
+	public String kopiranje(@RequestParam Integer idTura, Model model) {
+		Tura tura = ts.getById(idTura);
+		TuraDTO dto = new TuraDTO();
+		dto.setNaziv(tura.getNaziv());
+		dto.setOpis(tura.getOpis());
+		dto.setTip("privatna");
+		dto.setUmetnickodelos(tura.getUmetnickodelos());
+		
+		model.addAttribute("umetnickaDela", umetnickoDeloService.getDela());
+        model.addAttribute("tura", dto);
+        return "kreiranjeTure";
+	}
 }
