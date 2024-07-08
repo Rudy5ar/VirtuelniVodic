@@ -49,14 +49,16 @@ public class Tura implements Serializable {
 	private Korisnik korisnik;
 
 	//bi-directional many-to-many association to Umetnickodelo
-	@ManyToMany(mappedBy="turas")
+	@Getter
+	@ManyToMany
+	@JoinTable(
+			name = "delotura",
+			joinColumns = { @JoinColumn(name = "Tura_idTura") },
+			inverseJoinColumns = { @JoinColumn(name = "Umetnickodelo_idUmetnickoDelo") }
+	)
 	private List<Umetnickodelo> umetnickodelos = new ArrayList<>();
 
-	public List<Umetnickodelo> getUmetnickodelos() {
-		return umetnickodelos;
-	}
-	
-	// Add a helper method to add an Umetnickodelo
+    // Add a helper method to add an Umetnickodelo
     public void addUmetnickodelo(Umetnickodelo delo) {
         this.umetnickodelos.add(delo);
         delo.getTuras().add(this);
