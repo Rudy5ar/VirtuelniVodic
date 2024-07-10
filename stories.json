@@ -1,0 +1,492 @@
+{
+    "Menjanje ture" : {
+        "index" : 1,
+        "story_pts" : 5,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 12, 2024",
+        "date_completed" : "May 12, 2024",
+        "story" : "Kao korisnik, mogu da menjam turu.",
+        "comment" : "",
+        "acceptance criteria" : [
+            {"test" : "Izmeniti ime ture", "status" : "Succeedes"},
+            {"test" : "Izmeniti redosled umetnickih dela", "status" : "Succeedes"},
+            {"test" : "Ukloniti umetnicko delo", "status" : "Succeedes"},
+            {"test" : "Dodati umetnicko delo", "status" : "Succeedes"}
+        ]
+    },
+    "Objava ture" : {
+        "index" : 2,
+        "story_pts" : 2,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 10, 2024",
+        "date_completed" : "May 12, 2024",
+        "story" : "Kao korisnik, mogu da objavim kreiranu turu.",
+        "acceptance criteria" : [
+            {"test" : "Objaviti turu", "status" : "Succeedes"},
+            {"test" : "Pretraziti turu sa korisnickog naloga", "status" : "Succeedes"},
+            {"test" : "Pretraziti turu sa naloga koji nije kreirao", "status" : "Succeedes"},
+            {"test" : "Ne dozvoliti objavu prazne ture", "status" : "Succeedes"}
+        ]
+    },
+    "Pretraga licnih tura" : {
+        "index" : 3,
+        "story_pts" : 2,
+        "date_created" : "March 21, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 11, 2024",
+        "date_completed" : "May 12, 2024",
+        "story" : "Kao korisnik, mogu da pretrazim licne ture.",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da pretražim ture po turu koju sadrži unetog predmeta", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po trajanju turu", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po karakteristike turu (klasično, modern, nmp šta još…)", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po cenu ulaska", "status" : "Succeedes"}
+        ]
+    },
+    "Pretraga javnih tura" : {
+        "index" : 4,
+        "story_pts" : 2,
+        "date_created" : "March 21, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 12, 2024",
+        "date_completed" : "May 12, 2024",
+        "story" : "Kao korisnik, mogu da pretrazim javne ture.",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da pretražimture po turu koju sadrži unetog predmeta", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po trajanju ture", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po karakteristikama ture (klasično, modern...)", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po cenu ulaska", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po broj učesnika", "status" : "Succeedes"},
+            {"test" : "Da li mogu da pretražim po datum početka", "status" : "Succeedes"}
+        ]
+    },
+    "Pregled detalja" : {
+        "index" : 5,
+        "story_pts" : 3,
+        "date_created" : "March 21, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 11, 2024",
+        "date_completed" : "May 12, 2024",
+        "story" : "Kao korisnik, mogu da pregledam detalje o javnim i licnim turama.",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da vidim ko će biti prisutan", "status" : "Succeedes"},
+            {"test" : "Da li mogu da vidim ko je vodič tura", "status" : "Succeedes"},
+            {"test" : "Da li mogu da vidim komentari i review-ove o turu", "status" : "Succeedes"}
+        ]
+    },
+    "Kreiranje ture" : {
+        "index" : 6,
+        "story_pts" : 8,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 11, 2024",
+        "date_completed" : "May 11, 2024",
+        "story" : "Kao korisnik, mogu da kreiram turu.",
+        "acceptance criteria" : [
+            {"test" : "Kreirati turu", "status" : "Succeedes"},
+            {"test" : "Kreirati invalidnu turu", "status" : "Succeedes"},
+            {"test" : "Testirati da gost ne moze napraviti turu", "status" : "Succeedes"}
+        ]
+    },
+    "Logovanje i registrovanje" : {
+        "index" : 7,
+        "story_pts" : 7,
+        "date_created" : "April 10, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 25, 2024",
+        "date_completed" : "May 29, 2024",
+        "story" : "Kao gost, mogu da se ulogujem ili registrujem.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da gost može da se uloguje koristeći postojeći nalog", "status" : "Succeedes"},
+            {"test" : "Potvrditi da gost može da se registruje novim nalogom", "status" : "Succeedes"},
+            {"test" : "Potvrditi da se korisnik ne može registrovati bez unosa obaveznih informacija", "status" : "Succeedes"},
+            {"test" : "Potvrditi da gost može uspešno da se uloguje nakon registrovanja", "status" : "Succeedes"},
+            {"test" : "Proveriti da se korisnik ne može ulogovati s neispravnim podacima", "status" : "Succeedes"}
+        ]
+    },
+    "Detalji o predmetu" : {
+        "index" : 8,
+        "story_pts" : 2,
+        "date_created" : "March 21, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 8, 2024",
+        "date_completed" : "June 9, 2024",
+        "story" : "Kao korisnik, mogu da pregledam detalje o odredjenom umetnickom predmetu.",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da vidim više slike o predmetu", "status" : "Succeedes"},
+            {"test" : "Da li mogu da čitam i vezano materijali o predmetu (wikipedia link, td.)", "status" : "Succeedes"},
+            {"test" : "Da li mogu da čitam komentari i review-ove o predmetu", "status" : "Succeedes"}
+        ]
+    },
+    "Dodavanje predmeta" : {
+        "index" : 9,
+        "story_pts" : 3,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 22, 2024",
+        "date_completed" : "May 22, 2024",
+        "story" : "Kao uredjivac, mogu da dodajem umjetnicke predmete.",
+        "acceptance criteria" : [
+            {"test" : "proveriti da li se umetnicki predmet moze dodati", "status" : "Succeedes"},
+            {"test" : "potvrditi da se ne moze dodati predmet sa praznim obaveznim poljima forme", "status" : "Succeedes"},
+            {"test" : "proveriti da li su detalji koje je uredjivac unio ispravno sacuvani", "status" : "Succeedes"},
+            {"test" : "potvrditi da ostale vrste korisnika ne mogu dodavati umetnicke predmete", "status" : "Succeedes"}
+        ]
+    },
+    "Menjanje opisa" : {
+        "index" : 10,
+        "story_pts" : 1,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 21, 2024",
+        "date_completed" : "May 22, 2024",
+        "story" : "Kao uredjivac, mogu da mijenjam podatke o opisu umjetnickog predmeta.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o opisu umetnickog predmeta", "status" : "Succeedes"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Succeedes"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o opisu umetnickog predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Menjanje godine nastanka" : {
+        "index" : 11,
+        "story_pts" : 1,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 22, 2024",
+        "date_completed" : "May 22, 2024",
+        "story" : "Kao uredjivac, mogu da menjam podatke o godini nastanka umetnickog predmeta.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o godini nastanka umetnickog predmeta", "status" : "Succeedes"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Succeedes"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o godini nastanka umetnickog predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Menjanje epohe predmeta" : {
+        "index" : 12,
+        "story_pts" : 1,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 4, 2024 ",
+        "date_completed" : "July 4, 2024 ",
+        "story" : "Kao uredjivac, mogu da menjam podatke o epohi kojoj pripada umetnicki predmet.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o epohi umetnickog predmeta", "status" : "Succeedes"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Succeedes"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o epohi umetnickog predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Menjanje autora predmeta" : {
+        "index" : 13,
+        "story_pts" : 1,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 29, 2024",
+        "date_completed" : "May 29, 2024",
+        "story" : "Kao uredjivac, mogu da menjam podatke o autoru umetnickog predmeta.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da su uspesno promenjeni podaci o autoru umetnickog predmeta", "status" : "Succeedes"},
+            {"test" : "Potvrditi da polje nije prazno", "status" : "Succeedes"},
+            {"test" : "Potvrditi da drugi tipovi korisnika ne mogu da menjaju podatke o autoru umetnickog predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Pregled tura" : {
+        "index" : 14,
+        "story_pts" : 1,
+        "date_created" : "May 9, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 25, 2024",
+        "date_completed" : "May 25, 2024",
+        "story" : "Kao korisnik, imam vizuelni pristup pregledu tura.",
+        "acceptance criteria" : [
+            {"test" : "Proveriti da li se prikazuju ture klikom na dugme", "status" : "Succeedes"},
+            {"test" : "Proveriti da li se prikazuju validni podaci", "status" : "Succeedes"}
+        ]
+    },
+    "Pregled umetnickih predmeta" : {
+        "index" : 15,
+        "story_pts" : 4,
+        "date_created" : "May 9, 2024",
+        "part_of_sprint" : "Sprint 1",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 20, 2024",
+        "date_completed" : "May 22, 2024",
+        "story" : "Kao korisnik, imam pristup pregledu umetnickih predmeta u turi.",
+        "acceptance criteria" : [
+            {"test" : "Prikaz predmeta pri kliku na turu", "status" : "Succeedes"},
+            {"test" : "Provera validnosti podataka na prikazu", "status" : "Succeedes"}
+        ]
+    },
+    "Sortiranje tura hronoloski" : {
+        "index" : 16,
+        "story_pts" : 2,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 8, 2024",
+        "date_completed" : "June 10, 2024",
+        "story" : "Kao korisnik, mogu da sortiram turu hronoloski.",
+        "acceptance criteria" : [
+            {"test" : "Sortirati listu i proveriti rezultat", "status" : "Succeedes"},
+            {"test" : "Napraviti novu turu pa naknadno sortirati", "status" : "Succeedes"}
+        ]
+    },
+    "Sortiranje tura po razdaljini" : {
+        "index" : 17,
+        "story_pts" : 2,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 8, 2024",
+        "date_completed" : "June 10, 2024",
+        "story" : "Kao korisnik, mogu da sortiram turu po razdaljini.",
+        "acceptance criteria" : [
+            {"test" : "Sortirati listu i proveriti rezultat", "status" : "Succeedes"},
+            {"test" : "Napraviti novu turu pa naknadno sortirati", "status" : "Succeedes"}
+        ]
+    },
+    "Odabir nivo opstosti" : {
+        "index" : 18,
+        "story_pts" : 4,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 1, 2024",
+        "date_completed" : "June 3, 2024",
+        "story" : "Kao korisnik, mogu da odaberem nivo opstosti opisa predmeta iz ture. (Novi Sad, bivsa Jugoslavija, Evropa)",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da izaberem tačno jedan iz lista opcija", "status" : "Succeedes"},
+            {"test" : "Da li moj izbor važi i za ostali predmeti ili treba jedan po jedan izaberim", "status" : "Succeedes"},
+            {"test" : "Da li strana čuva moj izbor, ako ja izađem pa vratim na strana.", "status" : "Succeedes"},
+            {"test" : "Da li naknadno mogu da izaberem drugu opciju.", "status" : "Succeedes"}
+        ]
+    },
+    "Prikaz razlicitih ruta" : {
+        "index" : 19,
+        "story_pts" : 10,
+        "date_created" : "April 17, 2024",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 1, 2024",
+        "date_completed" : "July 7, 2024",
+        "story" : "Kao korisnik, mogu da prikazem razlicite rute za istu turu na mapi",
+        "acceptance criteria" : [
+            {"test" : "Napraviti controller za rute", "status" : "Succeedes"},
+            {"test" : "Napraviti servis koji ce komunicirati sa OpenRouteService API-jem", "status" : "Succeedes"},
+            {"test" : "Napraviti prikaz rute na mapi", "status" : "Succeedes"},
+            {"test" : "Napraviti metodu za racunanje distance izmedju umetnickih predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Sortiranje ture po slicnosti" : {
+        "index" : 20,
+        "story_pts" : 2,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 2",
+        "status" : "TODO",
+        "assigned_to" : "",
+        "date_started" : "/",
+        "date_completed" : "/",
+        "story" : "Kao korisnik, mogu da sortiram turu po slicnosti pravca/umetnika.",
+        "acceptance criteria" : [
+            {"test" : "Sortirati listu i proveriti rezultat", "status" : "Fails"},
+            {"test" : "Napraviti novu turu pa naknadno soritrati", "status" : "Fails"}
+        ]
+    },
+    "Pregled da li sam ulogovan" : {
+        "index" : 21,
+        "story_pts" : 1,
+        "date_created" : "June 27, 2024 ",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 25, 2024",
+        "date_completed" : "June 27, 2024",
+        "story" : "Kao korisnik, mogu da vidim da sam ulogovan",
+        "acceptance criteria" : [
+             {"test" : "Na gornji desno deo treba da se vidi ime korisnika", "status" : "Succeedes"},
+             {"test" : "Kad niko nije ulogavan, taj deo nije vidljiv ", "status" : "Succeedes"}
+        ]
+    },
+    "Davanje dozvole za uredjivanje" : {
+        "index" : 22,
+        "story_pts" : 2,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 15, 2024",
+        "date_completed" : "June 27, 2024",
+        "story" : "Kao administrator, mogu da dajem dozvolu za uredjivanje korisnicima.",
+        "acceptance criteria" : [
+            {"test" : "dodati dozvolu za uredjivanje korisniku", "status" : "Succeedes"},
+            {"test" : "proveriti da korisnik sa dozvolom moze uredjivati", "status" : "Succeedes"},
+            {"test" : "proveriti da korisnik bez dozvole ne moze uredjivati", "status" : "Succeedes"},
+            {"test" : "proveriti da se korisniku moze oduzeti dozvola za uredjivanje", "status" : "Succeedes"},
+            {"test" : "proveriti da korisnik vidi da je dobio dozvolu za uredjivanje (opciono)", "status" : "Succeedes"}
+        ]
+    },
+    "Pisanje clanaka" : {
+        "index" : 23,
+        "story_pts" : 3,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "June 27, 2024",
+        "date_completed" : "June 30, 2024",
+        "story" : "Kao uredjivac, mogu da pisem clanke.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da uredjivac moze dodati tekstove o epohama, znacajnim godinama i autorima iz baze", "status" : "Succeedes"},
+            {"test" : "potvrditi da ne se ne moze dodati tekst za koji nisu popunjena sva obavezna polja iz forme", "status" : "Succeedes"},
+            {"test" : "potvrditi da su svi detalji ispravno sacuvani", "status" : "Succeedes"},
+            {"test" : "potvrditi da ostali tipovi korisnika ne mogu da dodaju takve tekstove", "status" : "Succeedes"}
+        ]
+    },
+    "Pretraga predmeta po kriterijumima" : {
+        "index" : 24,
+        "story_pts" : 4,
+        "date_created" : "March 20, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 2, 2024",
+        "date_completed" : "July 7, 2024",
+        "story" : "Kao gost, mogu da pretrazujem umetnicke predmete na osnovu epohe, umetnika i godine nastanka.",
+        "acceptance criteria" : [
+            {"test" : "Da li mogu da uradim pretragu bez ikakvih podataka", "status" : "Succeedes"},
+            {"test" : "Da li mogu da uradim pretragu sa nepostojećim umetnikom", "status" : "Succeedes"},
+            {"test" : "Da li mogu da uradim pretragu sa godinom nastanka u budućnosti", "status" : "Succeedes"}
+        ]
+    },
+    "Kopiranje tudjih tura" : {
+        "index" : 25,
+        "story_pts" : 3,
+        "date_created" : "March 21, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 4, 2024",
+        "date_completed" : "July 8, 2024",
+        "story" : "Kao korisnik, mogu da kopiram tudje ture i napravim ih svojim.",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da korisnik može da kopira tuđe ture.", "status" : "Succeedes"},
+            {"test" : "Potvrditi da kopirana tura ima iste informacije kao originalna tura.", "status" : "Succeedes"},
+            {"test" : "Potvrditi da kopiranje ture ne menja originalnu turu ili informacije vezane za nju.", "status" : "Succeedes"},
+            {"test" : "Proveriti da korisnik može da prilagodi kopiranu turu (npr. promena imena, dodavanje/uklanjanje umetničkih dela itd.).", "status" : "Succeedes"}
+        ]
+    },
+    "Biranje nivo opstosti opisa" : {
+        "index" : 26,
+        "story_pts" : 4,
+        "date_created" : "July 5, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 6, 2024",
+        "date_completed" : "July 7, 2024",
+        "story" : "Kao korisnik, mogu da izaberem nivo opstosti opisa predmeta u turi",
+        "acceptance criteria" : [
+            {"test" : "Potvrditi da se detalji ture prikazuju na stranici za pregled", "status" : "Succeedes"},
+            {"test" : "Potvrditi da se iz padajućeg menija može izabrati opis predmeta", "status" : "Succeedes"}
+        ]
+    },
+    "Kreiranje epohe" : {
+        "index" : 27,
+        "story_pts" : 2,
+        "date_created" : "July 7, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 6, 2024",
+        "date_completed" : "July 7, 2024",
+        "story" : "Kao uredjivac, mogu da kreiram epohu",
+        "acceptance criteria" : [
+            {"test" : "Test pristupa formi za kreiranje epohe", "status" : "Succeedes"},
+            {"test" : "Test uspešnog kreiranja epohe", "status" : "Succeedes"},
+            {"test" : "Test navigacije nakon kreiranja epohe (treba da se prikaže strana sa detaljima kreirane epohe)", "status" : "Succeedes"},
+            {"test" : "Test pristupa kreiranju epohe bez dozvole", "status" : "Succeedes"}
+        ]
+    },
+    "Kreiranje umetnika" : {
+        "index" : 28,
+        "story_pts" : 2,
+        "date_created" : "July 7, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 5, 2024",
+        "date_completed" : "July 7, 2024",
+        "story" : "Kao uredjivac mogu da kreiram umetnika",
+        "acceptance criteria" : [
+            {"test" : "Test pristupa formi za kreiranje umetnika", "status" : "Succeedes"},
+            {"test" : "Test uspešnog kreiranja umetnika", "status" : "Succeedes"},
+            {"test" : "Test navigacije nakon kreiranja umetnika (treba da se prikaže strana sa detaljima kreiranog umetnika)", "status" : "Succeedes"},
+            {"test" : "Test pristupa kreiranju umetnika bez dozvole", "status" : "Succeedes"}
+        ]
+    },
+    "Ostajanje ulogovan" : {
+        "index" : 29,
+        "story_pts" : 5,
+        "date_created" : "May 29, 2024",
+        "part_of_sprint" : "Sprint 4",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "May 25, 2024",
+        "date_completed" : "May 30, 2024",
+        "story" : "Kao korisnik, potom ulogovanje ostanem ulogovan iako izlazim iz pretraživača",
+        "acceptance criteria" : [
+             {"test" : "Posle izlazak i ulazak korisnik još uvek ulogovan", "status" : "Succeedes"},
+             {"test" : "Ako vreme sessija istekna, korisnik izlazi se sami", "status" : "Succeedes"}
+        ]
+    },
+    "Pravljenje PDF-a" : {
+        "index" : 30,
+        "story_pts" : 6,
+        "date_created" : "April 17, 2024",
+        "part_of_sprint" : "Sprint 3",
+        "status" : "DONE",
+        "assigned_to" : "",
+        "date_started" : "July 1, 2024",
+        "date_completed" : "July 4, 2024",
+        "story" : "Kao korisnik, mogu da kreiram PDF na osnovu ture",
+        "acceptance criteria" : [
+             {"test" : "Korisnik može da generiše o svaki privatnu turu", "status" : "Succeedes"},
+             {"test" : "Korisnik može da generiše o svaki javnu turu", "status" : "Succeedes"},
+             {"test" : "PDF izlega dobro", "status" : "Succeedes"}
+        ]
+    }
+}

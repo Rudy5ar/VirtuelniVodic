@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core'%>
@@ -11,33 +11,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Muzej</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="nav-bar">
-      <a href="login" class="nav-btn-right">Home</a>
-      <a href="register" class="nav-btn-right">Register</a>
-      <sec:authorize access="isAuthenticated()">
-      	<a href="/Muzej/logout" class="nav-btn-right">Log out</a>
-      </sec:authorize>
-    </div>
+    <jsp:include page="header.jsp" />
 
 	<sec:authorize access="!isAuthenticated()">
-    <div class="horizontal-container">
+    <div class="container">
       <sf:form modelAttribute="user"  action="login"  method="post" class="login-form">
-        <h2>Login</h2>
+        <h2>Ulogovanje</h2>
         <sf:input path="email" placeholder="Email" />
-        <sf:password path="sifra" placeholder="Password" />
-        <input class="blue-btn" type="submit" value="Continue" />
+        <sf:password path="sifra" placeholder="Lozinka" />
+        <input class="btn-route" type="submit" value="Prijava" />
       </sf:form>
 
-      <div class="vertical-container">
-        <h1>Don't have an account?</h1>
-        <a href="register" class="blue-btn">Register</a>
-      </div>
+        <h1>Nemate nalog?</h1>
+        <a href="register" class="btn-route">Registracija</a>
       </sec:authorize>
       <sec:authorize access="isAuthenticated()">
       	<h1>Već ste ulogovani!</h1>
       </sec:authorize>
+      <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>
   </body>
 </html>

@@ -8,24 +8,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/index.css" />
-    <link rel="stylesheet" href="styles/error.css" />
-    <title>Glassnet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Muzej</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <div class="nav-bar">
-       <a href="login" class="nav-btn-right">Home</a>
-      <a href="register" class="nav-btn-right">Register</a>
-      <sec:authorize access="isAuthenticated()">
-      	<a href="logout" class="nav-btn-right">Log out</a>
-      </sec:authorize>
-    </div>
+    <jsp:include page="header.jsp" />
 
-    <div class="horizontal-container">
-      <div class="vertical-container">
-        <h1 class="error">${error}</h1>
-      </div>
+    <div class="container">
+      <h1 class="error">${error}</h1>
+      <a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
     </div>
   </body>
 </html>
