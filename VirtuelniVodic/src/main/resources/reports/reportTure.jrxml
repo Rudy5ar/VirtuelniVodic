@@ -15,7 +15,7 @@
 	</title>
 	<pageHeader height="46" splitType="Stretch">
 		<element kind="staticText" uuid="14878f62-a041-4ed4-94c6-a1d79d0e43ae" x="0" y="16" width="555" height="30" fontSize="15.0" hTextAlign="Left" vTextAlign="Middle">
-			<text><![CDATA[Umetnička dela ture:]]></text>
+			<text><![CDATA[Umetnicka dela ture:]]></text>
 		</element>
 	</pageHeader>
 	<columnHeader height="30" splitType="Stretch">
@@ -24,7 +24,7 @@
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ef9f0462-7027-4c50-85d4-30e571d24484"/>
 		</element>
 		<element kind="staticText" uuid="0159b2c9-8f4a-4dbb-9164-42ff50177c8a" x="185" y="0" width="185" height="30" bold="true" vTextAlign="Middle">
-			<text><![CDATA[Naziv umetničkog dela]]></text>
+			<text><![CDATA[Naziv umetnickog dela]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="405f96c2-d9cc-4bd4-8d18-25badcfe01d8"/>
 		</element>
 		<element kind="staticText" uuid="bd373a6a-a640-40bc-b988-490ae7ce181d" x="370" y="0" width="185" height="30" bold="true" vTextAlign="Middle">
