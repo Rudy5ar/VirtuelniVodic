@@ -37,6 +37,6 @@
     // Fit the map view to the polyline
     map.fitBounds(polyline.getBounds());
 </script>
-<a class="back-link" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
+<a class="btn-route" href="http://localhost:8080/Muzej/home.jsp">Back to Home</a>
 </body>
 </html>

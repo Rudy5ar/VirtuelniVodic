@@ -32,7 +32,6 @@ public class RouteService {
         return R * c;
     }
 
-
     public String getRoute(String coordinates){
         String url = "https://api.openrouteservice.org/v2/directions/driving-car";
         RestTemplate restTemplate = new RestTemplate();

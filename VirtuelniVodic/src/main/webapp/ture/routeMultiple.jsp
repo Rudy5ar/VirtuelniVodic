@@ -9,6 +9,7 @@
     <style>
         #map { height: 600px; }
     </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <div id="map"></div>
